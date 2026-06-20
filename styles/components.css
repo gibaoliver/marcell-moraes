@@ -660,6 +660,10 @@
         grid-template-columns: 1fr;
     }
     
+    .hero-grid {
+        padding-top: 6rem;
+    }
+    
     .pull-quote {
         position: relative;
         bottom: 0;
