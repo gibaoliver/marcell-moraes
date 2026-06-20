@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcell Moraes | A Voz Histórica da Proteção Animal na Bahia</title>
+    <meta name="description" content="O pioneirismo de Marcell Moraes transformou a causa animal em política pública e resultados reais para milhares de famílias na Bahia.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/components.css">
+    
+    <!-- SPA, Tailwind and Icons (Non-destructive) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for Admin Dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      tailwind.config = {
+        corePlugins: {
+          preflight: false,
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .view-section.hidden { display: none !important; }
+        /* Scope tailwind utilities specifically within tw-root to prevent any leaks */
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header id="main-header" class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <span class="logo-name">Marcell Moraes</span>
+                <span class="logo-dot">.</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#legado">Legado</a>
+                <a href="#biografia">Biografia</a>
+                <a href="#ecossistema">Ações</a>
+                <a href="#galeria">Galeria</a>
+                <a href="#ajuda">Utilidade Pública</a>
+                <a href="#" onclick="navigate('login'); return false;">Acesso Restrito</a>
+            </nav>
+            <a href="https://wa.me/5571999999999" class="btn btn-primary nav-cta">Fale Conosco</a>
+        </div>
+    </header>
+
+    <!-- SPA CONTAINER -->
+    <main id="app-container">
+    <!-- HOME VIEW -->
+    <div id="home-view" class="view-section active">
+
+    <!-- Ultra Modern Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-orb orb-1"></div>
+        <div class="hero-orb orb-2"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Uma Vida Dedicada a<br><span class="highlight">Proteger</span> Quem Não Pode Falar.</h1>
+                <p class="hero-subtitle">O pioneirismo que transformou a causa animal na Bahia. De um ideal de justiça a resultados reais para milhares de animais e famílias. Uma trajetória de resiliência e ações que salvam vidas.</p>
+                <div class="hero-actions">
+                    <a href="#comunidade" class="btn btn-glow btn-lg">Fazer Parte da Comunidade</a>
+                    <a href="#legado" class="btn btn-glass btn-lg">Conhecer o Legado</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Descubra</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section id="legado" class="metrics-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Resultados Mensuráveis. Impacto Permanente.</h2>
+                <p>A verdadeira liderança não é medida por discursos, mas pela capacidade de entrega. Conheça a escala do trabalho que redefiniu a proteção animal no estado.</p>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-number" data-target="150000">+0</span>
+                    <h3 class="metric-label">Atendimentos Veterinários</h3>
+                    <p class="metric-desc">Consultas e suporte emergencial viabilizados para a população.</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number" data-target="80000">+0</span>
+                    <h3 class="metric-label">Castrações Realizadas</h3>
+                    <p class="metric-desc">Controle populacional ético e saúde preventiva em larga escala.</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number" data-target="40">0+</span>
+                    <h3 class="metric-label">Leis e Emendas Aprovadas</h3>
+                    <p class="metric-desc">O maior arcabouço jurídico de defesa animal da história baiana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biography Section -->
+    <section id="biografia" class="biography-section">
+        <div class="container biography-grid">
+            <div class="biography-image-wrapper">
+                <img src="assets/WhatsApp Image 2026-06-17 at 22.35.51.jpeg" alt="Marcell Moraes" class="biography-img">
+                <div class="pull-quote">
+                    <p>"Onde houver um animal em sofrimento e uma família sem recursos, ali está o meu propósito de vida."</p>
+                </div>
+            </div>
+            <div class="biography-content">
+                <h2>Pioneirismo, Resiliência e Ação Contínua.</h2>
+                <h3 class="subtitle">De líder estudantil à principal voz da proteção animal e social da Bahia.</h3>
+                
+                <p>Com raízes fincadas no município de Ruy Barbosa e formação em Administração, Marcell Moraes compreendeu cedo que a compaixão precisa estar atrelada à capacidade de execução. Ainda como líder estudantil em Salvador, assumiu a linha de frente de batalhas que a maioria ignorava.</p>
+                
+                <p>Fundou o Grupo Ecológico e Amigos de Moradores de Rua (GEAMO) e coordenou iniciativas que deram voz aos invisíveis. Essa vocação o levou ao legislativo, onde consolidou-se como o pioneiro "Deputado dos Animais".</p>
+                
+                <p>A vida pública exige sacrifícios e impõe obstáculos, mas a trajetória de Marcell é marcada por uma resiliência inabalável. Ele não apenas enfrenta sistemas arcaicos; ele os reestrutura. Sua atuação provou que a defesa animal não é uma pauta isolada, mas uma questão central de saúde pública e justiça social para as famílias que dependem de suporte gratuito.</p>
+                
+                <p>Hoje, além de cargos ou mandatos, Marcell Moraes é uma instituição em si mesmo. Uma força de mobilização que não recua, não se omite e continua entregando resultados diários.</p>
+                
+                <a href="#" class="btn btn-outline">Acompanhe os Bastidores no Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section id="ecossistema" class="ecosystem-section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pilares de Transformação Social</h2>
+                <p>Uma infraestrutura de ações projetada para atuar onde o sistema falha, garantindo dignidade, proteção e saúde.</p>
+            </div>
+            
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="action-card">
+                    <div class="card-image-wrapper">
+                        <img src="assets/WhatsApp Image 2026-06-17 at 22.35.49.jpeg" alt="Saúde Animal">
+                    </div>
+                    <div class="card-content">
+                        <h3>Saúde Animal Gratuita e Acessível</h3>
+                        <p>A democratização do acesso veterinário. Viabilização de Castramóveis, implementação de clínicas gratuitas e realização de megamutirões de vacinação, garantindo que a renda não seja um impeditivo para a saúde.</p>
+                        <a href="#" class="card-link">Entenda o Projeto &rarr;</a>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="action-card">
+                    <div class="card-image-wrapper">
+                        <img src="assets/WhatsApp Image 2026-06-17 at 22.35.50.jpeg" alt="Legislação, Combate e Proteção">
+                    </div>
+                    <div class="card-content">
+                        <h3>Legislação, Combate e Proteção</h3>
+                        <p>A institucionalização da defesa. Criação e aprovação de projetos de leis rigorosos, endurecimento das penas contra maus-tratos e fiscalização contínua para garantir que os direitos dos animais sejam aplicados na prática.</p>
+                        <a href="#" class="card-link">Ver Ações Legais &rarr;</a>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="action-card">
+                    <div class="card-image-wrapper">
+                        <img src="assets/WhatsApp Image 2026-06-17 at 22.35.48 (1).jpeg" alt="Inclusão Social">
+                    </div>
+                    <div class="card-content">
+                        <h3>Inclusão Social e Amparo Comunitário</h3>
+                        <p>Proteger o animal é acolher a família. Foco em políticas integradas que oferecem suporte a tutores em vulnerabilidade social, reconhecendo o vínculo afetivo e promovendo dignidade para o núcleo familiar.</p>
+                        <a href="#" class="card-link">Saiba Mais &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galeria" class="gallery-section" style="padding: 4rem 0;">
+        <div class="container">
+            <div class="section-header text-center" style="margin-bottom: 2rem;">
+                <h2>Nossas Ações em Imagens</h2>
+                <p>Veja de perto o impacto real do nosso trabalho nas ruas e comunidades.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.47.jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.48.jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.49.jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.50.jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.51.jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.52.jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.47 (1).jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.48 (1).jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.49 (1).jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.50 (1).jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.51 (1).jpeg" alt="Ação" loading="lazy"></div>
+                <div class="gallery-item"><img src="assets/WhatsApp Image 2026-06-17 at 22.35.52 (1).jpeg" alt="Ação" loading="lazy"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Utility Section (Contact/Help) -->
+    <section id="ajuda" class="utility-section">
+        <div class="container utility-grid">
+            <div class="utility-header">
+                <h2>Como Podemos Ajudar Você Hoje?</h2>
+                <p>Canal direto de utilidade pública para orientação, denúncias e acesso aos serviços.</p>
+            </div>
+            
+            <div class="utility-boxes">
+                <div class="utility-box">
+                    <h3>Precisa de Suporte Veterinário?</h3>
+                    <p>Saiba como ter acesso aos serviços gratuitos de castração, vacinação e orientações de saúde para seu animal.</p>
+                    <a href="#" class="btn btn-primary btn-block">Central de Acesso Fácil</a>
+                </div>
+                
+                <div class="utility-box box-dark">
+                    <h3>Testemunhou Maus-Tratos?</h3>
+                    <p>O silêncio é cúmplice. Receba orientação de como formalizar uma denúncia segura e fazer a lei ser cumprida.</p>
+                    <a href="#" class="btn btn-outline-light btn-block">Orientação para Denúncia</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div> <!-- END HOME VIEW -->
+
+    <!-- SURVEY VIEW -->
+    <div id="survey-view" class="view-section hidden font-sans text-slate-800 bg-slate-50 min-h-screen flex flex-col">
+        <!-- Agent Header -->
+        <header class="bg-white shadow-sm px-6 py-4 flex justify-between items-center sticky top-0 z-10">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-100 p-2 rounded-full text-blue-600">
+                    <i class="fas fa-user-circle text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Cabo Eleitoral</p>
+                    <p id="survey-agent-name" class="font-bold text-gray-800">Carregando...</p>
+                </div>
+            </div>
+            <button onclick="logout()" class="text-red-500 hover:text-red-700 font-medium text-sm flex items-center transition-colors">
+                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+            </button>
+        </header>
+
+        <div class="flex-1 py-10 px-4">
+            <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="bg-blue-600 text-white p-6 text-center">
+                    <h2 class="text-3xl font-bold mb-2">Nova Pesquisa</h2>
+                    <p class="text-blue-100">Registre a opinião do cidadão abaixo.</p>
+                </div>
+                <div class="p-8">
+                    <form id="survey-form" class="space-y-6">
+                    <!-- Nome do Entrevistado -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nome do Entrevistado</label>
+                        <input type="text" id="survey-name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nome completo">
+                    </div>
+                    <!-- Telefone (WhatsApp) -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">WhatsApp</label>
+                        <input type="tel" id="survey-phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="(71) 90000-0000">
+                    </div>
+                    <!-- Perguntas Dinamicas -->
+                    <div id="survey-questions-container" class="space-y-6 pt-4 border-t border-gray-200">
+                        <!-- Injected via JS -->
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 mt-6">
+                        Finalizar Pesquisa <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="bg-gray-50 p-4 text-center border-t border-gray-100">
+                <button onclick="navigate('home')" class="text-gray-500 hover:text-gray-800 text-sm font-medium">Voltar para o site principal</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- LOGIN VIEW -->
+    <div id="login-view" class="view-section hidden font-sans bg-slate-950 min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">Acesso Restrito</h1>
+                <p class="text-slate-400">Painel de Monitoramento Marcell Moraes</p>
+            </div>
+            <form id="login-form" class="space-y-6">
+                <div id="login-error" class="hidden bg-red-900/50 border border-red-500 text-red-200 px-4 py-3 rounded-lg text-sm">
+                    Credenciais inválidas.
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Usuário</label>
+                    <input type="text" id="login-user" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Senha</label>
+                    <input type="password" id="login-pass" required class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg shadow-lg transition-colors">
+                    Entrar no Painel
+                </button>
+            </form>
+            <div class="mt-6 text-center">
+                <button onclick="navigate('home')" class="text-slate-500 hover:text-slate-300 text-sm">← Voltar ao site</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="admin-view" class="view-section hidden font-sans bg-slate-100 min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <div class="w-full md:w-64 bg-slate-900 text-white min-h-screen flex flex-col">
+            <div class="p-6 border-b border-slate-800">
+                <h2 class="text-xl font-bold text-white">Painel Admin</h2>
+                <p class="text-slate-400 text-xs mt-1">Gestão de CRM e Enquetes</p>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <button onclick="switchAdminTab('dashboard')" id="tab-btn-dashboard" class="admin-tab-btn w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-left text-blue-400 bg-slate-800 transition-colors">
+                    <i class="fas fa-chart-pie w-5"></i> Dashboard
+                </button>
+                <button onclick="switchAdminTab('crm')" id="tab-btn-crm" class="admin-tab-btn w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-left text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">
+                    <i class="fas fa-users w-5"></i> Fichas CRM
+                </button>
+                <button onclick="switchAdminTab('agents')" id="tab-btn-agents" class="admin-tab-btn w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-left text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">
+                    <i class="fas fa-id-badge w-5"></i> Cabos Eleitorais
+                </button>
+                <button onclick="switchAdminTab('survey')" id="tab-btn-survey" class="admin-tab-btn w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-left text-slate-300 hover:bg-slate-800 hover:text-white transition-colors">
+                    <i class="fas fa-clipboard-list w-5"></i> Gerenciar Enquete
+                </button>
+            </nav>
+            <div class="p-4 border-t border-slate-800">
+                <button onclick="logout()" class="w-full flex items-center px-4 py-2 text-sm text-red-400 hover:bg-slate-800 hover:text-red-300 rounded-lg transition-colors">
+                    <i class="fas fa-sign-out-alt w-5"></i> Sair
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="flex-1 h-screen overflow-auto">
+            <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center sticky top-0 z-10">
+                <h1 id="admin-page-title" class="text-2xl font-bold text-gray-800">Dashboard</h1>
+                <div class="text-sm text-gray-500">Logado como <span class="font-bold text-gray-700">Administrador</span></div>
+            </header>
+            
+            <main class="p-8">
+                <!-- Tab: Dashboard -->
+                <div id="tab-dashboard" class="admin-tab-content space-y-6">
+                    <!-- Metric Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 border-l-4 border-l-blue-500">
+                            <div class="text-sm text-gray-500 font-medium mb-1">Total Entrevistados</div>
+                            <div id="dash-total-interviews" class="text-3xl font-bold text-gray-800">0</div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 border-l-4 border-l-green-500">
+                            <div class="text-sm text-gray-500 font-medium mb-1">Cabos Ativos</div>
+                            <div id="dash-total-agents" class="text-3xl font-bold text-gray-800">0</div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 border-l-4 border-l-purple-500">
+                            <div class="text-sm text-gray-500 font-medium mb-1">Total Perguntas</div>
+                            <div id="dash-total-questions" class="text-3xl font-bold text-gray-800">0</div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 border-l-4 border-l-yellow-500">
+                            <div class="text-sm text-gray-500 font-medium mb-1">Cabo Líder</div>
+                            <div id="dash-top-agent" class="text-xl font-bold text-gray-800 mt-2 truncate">-</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Evolução Temporal -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Evolução de Pesquisas</h3>
+                        <div class="w-full h-64">
+                            <canvas id="chart-evolution"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Cabos Chart -->
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 lg:col-span-1">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">Volume por Agente</h3>
+                            <div class="w-full h-64 relative">
+                                <canvas id="chart-agents"></canvas>
+                            </div>
+                        </div>
+                        <!-- Questions Container -->
+                        <div class="bg-transparent lg:col-span-2">
+                            <div id="dash-questions-charts" class="grid grid-cols-1 gap-6">
+                                <!-- Dynamic Question Charts (JS Injected) -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab: CRM -->
+                <div id="tab-crm" class="admin-tab-content hidden">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row gap-4 justify-between items-center bg-gray-50">
+                            <div class="relative w-full md:w-64">
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                <input type="text" id="crm-search" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar nome ou fone...">
+                            </div>
+                            <select id="crm-filter-agent" class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-blue-500 focus:border-blue-500">
+                                <option value="all">Todos os Cabos</option>
+                            </select>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                                    <tr>
+                                        <th class="px-6 py-4">Data/Hora</th>
+                                        <th class="px-6 py-4">Cidadão</th>
+                                        <th class="px-6 py-4">WhatsApp</th>
+                                        <th class="px-6 py-4">Cabo Resp.</th>
+                                        <th class="px-6 py-4 text-right">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="crm-table-body" class="divide-y divide-gray-100">
+                                    <!-- JS Injected Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab: Agents -->
+                <div id="tab-agents" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Adicionar Novo Cabo</h3>
+                        <form id="add-agent-form" class="flex flex-col gap-4">
+                            <div class="flex flex-col md:flex-row gap-4">
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                    <input type="text" id="new-agent-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Região de Atuação</label>
+                                    <input type="text" id="new-agent-region" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-4 items-end">
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">E-mail (Login)</label>
+                                    <input type="email" id="new-agent-email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+                                    <input type="text" id="new-agent-pass" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-sm transition-colors h-10 w-full md:w-auto">
+                                    Cadastrar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="agents-grid">
+                        <!-- JS Injected Agent Cards -->
+                    </div>
+                </div>
+                
+                <!-- Tab: Survey Config -->
+                <div id="tab-survey-config" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Adicionar Nova Pergunta</h3>
+                        <form id="add-question-form" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Enunciado da Pergunta</label>
+                                <input type="text" id="new-q-text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: Qual o principal problema do seu bairro?">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <input type="text" id="new-q-opt1" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500" placeholder="Opção 1">
+                                </div>
+                                <div>
+                                    <input type="text" id="new-q-opt2" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500" placeholder="Opção 2">
+                                </div>
+                                <div>
+                                    <input type="text" id="new-q-opt3" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500" placeholder="Opção 3">
+                                </div>
+                                <div>
+                                    <input type="text" id="new-q-opt4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500" placeholder="Opção 4">
+                                </div>
+                            </div>
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-sm transition-colors">
+                                Salvar Pergunta
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="space-y-4" id="questions-list">
+                        <!-- JS Injected Question Cards -->
+                    </div>
+                </div>
+                
+            </main>
+        </div>
+    </div>
+    </main> <!-- END SPA CONTAINER -->
+
+    <!-- Footer -->
+    <footer id="main-footer" class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <span class="logo-name">Marcell Moraes</span>
+                <p>O trabalho contínuo pela vida.</p>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h3>A causa não para. Seja o primeiro a saber das novas ações.</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Seu melhor e-mail..." required>
+                    <button type="submit" class="btn btn-primary">Receber Atualizações</button>
+                </form>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Transparência</a>
+                <a href="#">Projetos de Lei</a>
+                <a href="#">Assessoria de Imprensa</a>
+                <a href="#">Privacidade e Conduta</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Marcell Moraes. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/main.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
