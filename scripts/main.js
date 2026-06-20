@@ -10,6 +10,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // 1.5 Mobile Menu Toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileToggle && navLinks) {
+        mobileToggle.addEventListener('click', () => {
+            const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            mobileToggle.setAttribute('aria-expanded', !isExpanded);
+            navLinks.classList.toggle('active');
+            
+            // Toggle icon
+            const icon = mobileToggle.querySelector('i');
+            if (!isExpanded) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                navLinks.classList.remove('active');
+                const icon = mobileToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+    }
+
     // 2. Smooth Scrolling for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
