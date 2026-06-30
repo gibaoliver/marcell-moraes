@@ -722,7 +722,7 @@
         text-align: center;
     }
     
-    .metrics-grid, .cards-grid, .gallery-grid {
+    .metrics-grid, .cards-grid {
         grid-template-columns: 1fr !important;
     }
     
@@ -734,13 +734,16 @@
 
 /* --- Gallery Section --- */
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
     margin-top: 2rem;
 }
 
 .gallery-item {
+    flex: 1 1 250px;
+    max-width: 350px;
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow-md);
