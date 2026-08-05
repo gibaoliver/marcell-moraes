@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalhe na Campanha | Marcell Moraes</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/components.css">
+    
+    <!-- Tailwind and Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        corePlugins: { preflight: false }
+      }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .campaign-form-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            margin-top: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+        }
+        .hero-custom {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            .hero-custom {
+                padding-top: 80px;
+                padding-bottom: 40px;
+            }
+            .campaign-form-container {
+                padding: 1.25rem;
+                margin-top: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#0f172a] text-white">
+    <!-- Navbar -->
+    <header id="main-header" class="navbar relative" style="background: rgba(15, 23, 42, 0.9); z-index: 50;">
+        <div class="container nav-content w-full" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <a href="index.html" class="flex items-center text-white" style="text-decoration: none;">
+                    <span class="logo-name" style="font-size: 1.25rem;">Marcell Moraes</span>
+                    <span class="logo-dot">.</span>
+                </a>
+            </div>
+            
+            <!-- Botão Desktop -->
+            <a href="index.html" class="btn btn-glass hidden md:inline-flex">Voltar ao Início</a>
+            
+            <!-- Toggle Mobile -->
+            <button class="mobile-toggle text-white md:hidden p-2 cursor-pointer" aria-label="Abrir menu" id="mobileToggle" style="background: transparent; border: none; outline: none;">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            
+            <!-- Menu Mobile -->
+            <nav class="absolute top-full left-0 w-full bg-[#0f172a] hidden flex-col p-4 border-t border-gray-700 shadow-xl" id="navLinks" style="z-index: 40;">
+                <a href="index.html" class="text-white py-3 px-4 hover:bg-gray-800 rounded font-medium text-center" style="text-decoration: none;">Voltar ao Início</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-custom relative overflow-hidden">
+            <div class="hero-overlay"></div>
+            <div class="hero-orb orb-1"></div>
+            <div class="hero-orb orb-2"></div>
+            
+            <div class="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+                <div class="hero-content">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight break-words">
+                        Faça Parte da Nossa <br class="md:hidden"><span class="text-[#fbbf24]">Campanha</span>
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-8" style="line-height: 1.8;">
+                        A causa animal precisa de vozes fortes e pessoas dedicadas. Junte-se a nós nesta jornada para continuar protegendo quem não pode falar. Preencha seus dados ao lado e nossa equipe entrará em contato com você pelo WhatsApp.
+                    </p>
+                    <div class="flex items-center gap-4 text-gray-400">
+                        <i class="fas fa-users text-2xl text-[#fbbf24]"></i>
+                        <span>Seja um multiplicador da causa animal na sua região.</span>
+                    </div>
+                </div>
+                
+                <div class="campaign-form-container">
+                    <h2 class="text-2xl font-bold mb-6 border-b border-gray-700 pb-4">Seus Dados</h2>
+                    <form id="campaignForm">
+                        <div class="form-group">
+                            <label class="form-label" for="nome">Nome Completo</label>
+                            <input type="text" id="nome" class="form-input" required placeholder="Seu nome">
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label" for="idade">Idade</label>
+                                <input type="number" id="idade" class="form-input" required placeholder="Sua idade" min="16" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="whatsapp">WhatsApp</label>
+                                <input type="tel" id="whatsapp" class="form-input" required placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="cidade">Cidade</label>
+                            <input type="text" id="cidade" class="form-input" required placeholder="Sua cidade">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="bairro">Bairro</label>
+                            <input type="text" id="bairro" class="form-input" required placeholder="Seu bairro">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-glow w-full flex justify-center items-center gap-2" style="font-size: 1.1rem; padding: 1rem; cursor: pointer; border: none; font-family: inherit;">
+                            <i class="fab fa-whatsapp text-xl"></i> Enviar e Falar no WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('campaignForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const cidade = document.getElementById('cidade').value;
+            const bairro = document.getElementById('bairro').value;
+            
+            // WhatsApp target number
+            const targetNumber = '5571988670053';
+            
+            // Construct message
+            const message = `Olá, quero participar da campanha! \n\n*Meu nome é:* ${nome}\n*Idade:* ${idade} anos\n*Cidade:* ${cidade}\n*Bairro:* ${bairro}\n*Meu WhatsApp:* ${whatsapp}`;
+            
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Redirect to WhatsApp
+            const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Toggle do Menu Mobile
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks.classList.contains('hidden')) {
+                navLinks.classList.remove('hidden');
+                navLinks.classList.add('flex');
+            } else {
+                navLinks.classList.add('hidden');
+                navLinks.classList.remove('flex');
+            }
+        });
+    </script>
+</body>
+</html>
