@@ -11,9 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles/global.css">
-    
     <!-- Tailwind and Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -22,8 +19,10 @@
         theme: {
           extend: {
             colors: {
-              brand: '#fbbf24',
-              dark: '#0f172a'
+              navy: '#0A192F',
+              'navy-light': '#172A45',
+              gold: '#C5A059',
+              'gold-hover': '#D4AF37'
             }
           }
         }
@@ -32,24 +31,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
+        /* Base Overrides to prevent global.css conflicts */
+        html, body { 
+            margin: 0; padding: 0; 
+            font-family: 'Inter', sans-serif; 
+            background-color: #F7FAFC !important;
+            color: #2D3748 !important;
+            -webkit-font-smoothing: antialiased;
         }
-        .text-gradient {
-            background: linear-gradient(to right, #fbbf24, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        /* Hero Section */
+        .hero-section {
+            background-color: #0A192F;
+            background-image: radial-gradient(circle at top right, rgba(197, 160, 89, 0.15) 0%, transparent 50%);
+            color: #FFFFFF;
+            padding-top: 120px;
+            padding-bottom: 80px;
+            position: relative;
+            overflow: hidden;
         }
-        .hero-bg {
-            background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.15), transparent 40%),
-                        radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.1), transparent 40%);
+
+        /* Cards */
+        .info-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.02);
         }
-        
-        /* Modal Styles */
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Buttons */
+        .btn-gold {
+            background-color: #C5A059;
+            color: #FFFFFF !important;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-gold:hover {
+            background-color: #D4AF37;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+        }
+
+        /* Inputs */
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: #F7FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            color: #2D3748;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #C5A059;
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+            background: #FFFFFF;
+        }
+
+        /* Modal */
         #volunteerModal {
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
@@ -64,178 +119,163 @@
         #volunteerModal.active .modal-content {
             transform: scale(1) translateY(0);
         }
-
-        .form-input {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #fff;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #fbbf24;
-            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
-            background: rgba(0, 0, 0, 0.5);
-        }
-        
-        .btn-glow {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #000;
-            font-weight: 700;
-            border-radius: 99px;
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
-            transition: all 0.3s ease;
-        }
-        .btn-glow:hover {
-            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.6);
-            transform: translateY(-2px);
-        }
     </style>
 </head>
-<body class="hero-bg antialiased">
+<body>
+
     <!-- Navbar -->
-    <header class="fixed top-0 w-full z-50 glass-panel !rounded-none !border-x-0 !border-t-0" style="background: rgba(15, 23, 42, 0.85);">
+    <header class="fixed top-0 w-full z-50 bg-navy/95 backdrop-blur shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-1 text-white hover:opacity-80 transition">
+            <a href="index.html" class="flex items-center gap-1 text-white hover:opacity-80 transition" style="text-decoration: none;">
                 <span class="text-2xl font-bold tracking-tight">Marcell Moraes</span>
-                <span class="text-brand text-3xl leading-none">.</span>
+                <span class="text-gold text-3xl leading-none">.</span>
             </a>
-            <a href="index.html" class="hidden md:flex text-sm font-medium text-slate-300 hover:text-white transition">← Voltar ao Início</a>
+            <a href="index.html" class="hidden md:flex text-sm font-medium text-slate-300 hover:text-white transition" style="text-decoration: none;">
+                <i class="fas fa-arrow-left mr-2"></i> Voltar ao Início
+            </a>
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 text-gold text-sm font-semibold mb-6 border border-gold/20">
+                <i class="fas fa-paw"></i> O Movimento Não Pode Parar
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
+                Trabalhe na Campanha do <br class="hidden md:block"/>
+                <span class="text-gold">Federal dos Animais</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                A <strong>Causa animal</strong> precisa da sua voz. Seja parte da revolução histórica na Bahia e atue diretamente ao lado de quem realmente faz a diferença.
+            </p>
+        </div>
+    </section>
+
     <!-- Main Content -->
-    <main class="pt-32 pb-24">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="py-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <!-- Hero Header -->
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-brand text-sm font-semibold mb-6">
-                    <i class="fas fa-paw"></i> Junte-se ao Movimento
+            <div class="grid md:grid-cols-12 gap-12 items-center mb-20">
+                <div class="md:col-span-7">
+                    <h2 class="text-3xl md:text-4xl font-bold text-navy mb-6 leading-tight">A Maior Voz da Defesa Animal na Bahia</h2>
+                    <p class="text-slate-600 text-lg leading-relaxed mb-4">
+                        Ao longo de anos de dedicação ininterrupta, <strong>Marcell Moraes</strong> se consolidou como o grande pioneiro da proteção dos animais no estado. Suas ações resgataram milhares de vidas e instituíram hospitais públicos e leis severas contra os maus-tratos.
+                    </p>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        Trabalhar nesta campanha significa defender ativamente os direitos daqueles que não podem se defender. O <strong>Federal dos animais</strong> precisa de pessoas corajosas, prontas para multiplicar essa mensagem em cada cidade, cada bairro e cada família baiana.
+                    </p>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-                    Trabalhe na Campanha do <br class="hidden md:block"/>
-                    <span class="text-gradient">Federal dos Animais</span>
-                </h1>
-                <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-                    A causa animal precisa da sua voz. Seja parte da revolução histórica na Bahia ao lado de Marcell Moraes.
-                </p>
+                <div class="md:col-span-5 relative">
+                    <div class="absolute inset-0 bg-gold rounded-2xl transform translate-x-4 translate-y-4 opacity-20"></div>
+                    <img src="assets/WhatsApp Image 2026-06-17 at 22.35.48.jpeg" alt="Marcell Moraes" class="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/5] z-10" onerror="this.src='https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=800';">
+                </div>
             </div>
 
-            <!-- Content Sections -->
-            <div class="space-y-12">
-                
-                <!-- Sec 1 -->
-                <div class="glass-panel p-8 md:p-12 relative overflow-hidden group hover:border-brand/30 transition-colors duration-500">
-                    <div class="absolute top-0 right-0 -mt-10 -mr-10 text-9xl text-slate-800 opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-700">
+            <!-- Features -->
+            <div class="grid md:grid-cols-2 gap-8 mb-20">
+                <div class="info-card p-8 md:p-10">
+                    <div class="w-14 h-14 rounded-full bg-navy/5 flex items-center justify-center text-navy text-2xl mb-6">
                         <i class="fas fa-bullhorn"></i>
                     </div>
-                    <div class="relative z-10">
-                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">A Maior Voz da Causa Animal na Bahia</h2>
-                        <p class="text-slate-300 text-lg leading-relaxed mb-6">
-                            Ao longo de anos de dedicação ininterrupta, <strong>Marcell Moraes</strong> se consolidou como o grande pioneiro da proteção dos animais no estado. Suas ações resgataram milhares de vidas e instituíram hospitais públicos e leis severas contra os maus-tratos. 
-                        </p>
-                        <p class="text-slate-300 text-lg leading-relaxed">
-                            Trabalhar nesta campanha significa defender ativamente os direitos daqueles que não podem se defender. O <strong>Federal dos animais</strong> precisa de pessoas corajosas, prontas para multiplicar essa mensagem em cada cidade, cada bairro e cada família baiana.
-                        </p>
-                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-4">O Que Faz um Voluntário?</h3>
+                    <p class="text-slate-600 leading-relaxed text-lg">
+                        Você atuará de forma ativa na conscientização sobre o respeito e o bem-estar animal. Receberá materiais, informativos e total suporte para divulgar as propostas e o legado de quem provou que a política salva vidas.
+                    </p>
                 </div>
-
-                <!-- Sec 2 -->
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="glass-panel p-8 hover:border-brand/30 transition-colors duration-500">
-                        <div class="w-12 h-12 rounded-xl bg-brand/20 flex items-center justify-center text-brand text-2xl mb-6">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-4">O Que Significa Ser Voluntário?</h3>
-                        <p class="text-slate-400 leading-relaxed">
-                            É atuar de forma ativa na conscientização sobre o respeito e o bem-estar animal. Você receberá materiais, informativos e total suporte para divulgar as propostas e o legado de quem realmente fez acontecer.
-                        </p>
+                
+                <div class="info-card p-8 md:p-10">
+                    <div class="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl mb-6">
+                        <i class="fas fa-network-wired"></i>
                     </div>
-                    
-                    <div class="glass-panel p-8 hover:border-brand/30 transition-colors duration-500">
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-6">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-4">Alcance e Multiplicação</h3>
-                        <p class="text-slate-400 leading-relaxed">
-                            Ao se juntar ao time do <strong>Marcell Moraes</strong>, sua função principal é conectar pessoas. Explicar como a <strong>causa animal</strong> impacta a saúde pública e a sociedade, engajando novos defensores diariamente.
-                        </p>
-                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-4">Rede de Multiplicação</h3>
+                    <p class="text-slate-600 leading-relaxed text-lg">
+                        Ao se juntar ao time, sua função principal é conectar pessoas. Explicar como a <strong>Causa animal</strong> impacta a saúde pública e a sociedade como um todo, engajando novos defensores diariamente na sua região.
+                    </p>
                 </div>
+            </div>
 
-                <!-- Sec 3 -->
-                <div class="glass-panel p-8 md:p-12 text-center">
-                    <h2 class="text-3xl font-bold text-white mb-6">Nossa Missão Não Pode Parar</h2>
+            <!-- CTA Section -->
+            <div class="bg-navy rounded-3xl p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
+                <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23c5a059\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Nossa Missão Não Pode Parar</h2>
                     <p class="text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto mb-10">
-                        Mais do que uma eleição, este é um compromisso de vida. Para ampliarmos a <strong>Causa animal</strong> a nível federal, precisamos estar unidos. Cadastre-se agora e comece a atuar como liderança na sua região.
+                        Mais do que uma eleição, este é um compromisso de vida. Para ampliarmos a defesa animal a nível federal, precisamos estar unidos. Cadastre-se agora e comece a atuar como liderança na sua cidade.
                     </p>
                     
-                    <button onclick="openModal()" class="btn-glow px-10 py-5 text-lg inline-flex items-center gap-3">
-                        Quero Fazer Parte da Equipe <i class="fas fa-arrow-right"></i>
+                    <button onclick="openModal()" class="btn-gold text-lg px-8 py-4 w-full md:w-auto">
+                        Quero Fazer Parte da Equipe <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </div>
-
             </div>
+
         </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-10 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-slate-500 font-medium">&copy; 2026 Marcell Moraes. O trabalho contínuo pela vida animal.</p>
+        </div>
+    </footer>
 
     <!-- Registration Modal -->
     <div id="volunteerModal" class="fixed inset-0 z-[100] invisible opacity-0 flex items-center justify-center p-4">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="absolute inset-0 bg-navy/80 backdrop-blur-sm" onclick="closeModal()"></div>
         
         <!-- Modal Card -->
-        <div class="modal-content relative w-full max-w-lg glass-panel p-8 bg-[#0f172a]/90 shadow-2xl border-slate-700">
+        <div class="modal-content relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden">
             
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 hover:bg-slate-700">
-                <i class="fas fa-times"></i>
-            </button>
-
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 rounded-full bg-brand/10 text-brand text-3xl flex items-center justify-center mx-auto mb-4">
+            <!-- Modal Header -->
+            <div class="bg-navy p-6 md:p-8 text-center relative">
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-300 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10" style="border: none; background: transparent; cursor: pointer;">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+                <div class="w-16 h-16 rounded-full bg-gold/20 text-gold text-3xl flex items-center justify-center mx-auto mb-4 border border-gold/30">
                     <i class="fab fa-whatsapp"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-white mb-2">Junte-se à Equipe</h3>
-                <p class="text-slate-400">Preencha seus dados para receber o contato da nossa coordenação pelo WhatsApp.</p>
+                <p class="text-slate-300 text-sm">Preencha seus dados e nossa coordenação entrará em contato via WhatsApp.</p>
             </div>
 
-            <form id="campaignForm" class="space-y-5">
-                <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2" for="nome">Nome Completo</label>
-                    <input type="text" id="nome" class="form-input" required placeholder="Como quer ser chamado?">
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2" for="contato">Contato (WhatsApp)</label>
-                    <input type="tel" id="contato" class="form-input" required placeholder="(00) 00000-0000">
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-2" for="cidade">Cidade / Estado</label>
-                    <input type="text" id="cidade" class="form-input" required placeholder="Onde você mora?">
-                </div>
+            <!-- Modal Body -->
+            <div class="p-6 md:p-8">
+                <form id="campaignForm" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold text-navy mb-2" for="nome">Nome Completo</label>
+                        <input type="text" id="nome" class="form-input" required placeholder="Como quer ser chamado?">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-navy mb-2" for="contato">Contato (WhatsApp)</label>
+                        <input type="tel" id="contato" class="form-input" required placeholder="(00) 00000-0000">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-navy mb-2" for="cidade">Cidade / Estado</label>
+                        <input type="text" id="cidade" class="form-input" required placeholder="Onde você mora?">
+                    </div>
 
-                <button type="submit" class="btn-glow w-full py-4 text-lg mt-4 flex items-center justify-center gap-2">
-                    <i class="fab fa-whatsapp text-xl"></i> Enviar e Conectar
-                </button>
-                <p class="text-xs text-center text-slate-500 mt-4">Seus dados estão seguros conosco.</p>
-            </form>
+                    <button type="submit" class="btn-gold w-full py-4 text-lg mt-6 shadow-lg">
+                        <i class="fab fa-whatsapp text-xl"></i> Enviar e Conectar
+                    </button>
+                    <p class="text-xs text-center text-slate-400 mt-4 font-medium"><i class="fas fa-lock mr-1"></i> Seus dados estão seguros conosco.</p>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- Script for Modal and WhatsApp Redirect -->
+    <!-- Script -->
     <script>
         const modal = document.getElementById('volunteerModal');
         
         function openModal() {
             modal.classList.remove('invisible');
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         }
         
         function closeModal() {
@@ -246,14 +286,12 @@
             }, 300);
         }
 
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
             }
         });
 
-        // Form Submit
         document.getElementById('campaignForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -261,8 +299,7 @@
             const contato = document.getElementById('contato').value;
             const cidade = document.getElementById('cidade').value;
             
-            const targetNumber = '5571988670053'; // Coordinator number (same from user's code)
-            
+            const targetNumber = '5571988670053'; 
             const message = `Olá! Quero trabalhar na campanha da Causa Animal com Marcell Moraes.\n\n*Nome:* ${nome}\n*Contato:* ${contato}\n*Cidade:* ${cidade}\n\nComo posso ajudar?`;
             
             const encodedMessage = encodeURIComponent(message);
