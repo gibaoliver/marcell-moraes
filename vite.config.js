@@ -7,7 +7,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         galeria: resolve(__dirname, 'galeria.html'),
-        doacoes: resolve(__dirname, 'doacoes.html')
+        doacoes: resolve(__dirname, 'doacoes.html'),
+        campanha: resolve(__dirname, 'campanha.html')
       }
     }
   }
