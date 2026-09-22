@@ -384,38 +384,60 @@
 }
 
 /* --- Metrics Section --- */
+.metrics-section {
+    background-color: var(--bg-light);
+}
+
 .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-lg);
+}
+
+@media (max-width: 992px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
 }
 
 .metric-card {
     text-align: center;
-    padding: var(--space-lg);
-    background: var(--bg-main);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
+    padding: 2.25rem 1.25rem 2rem;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-top: 4px solid #6ec32b;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .metric-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.12);
 }
 
 .metric-number {
     display: block;
-    font-size: 3.5rem;
+    font-size: clamp(2.2rem, 3.2vw, 2.85rem);
     font-weight: 800;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: var(--space-sm);
+    color: var(--primary);
+    line-height: 1.1;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.02em;
 }
 
-.metric-label {
-    font-size: 1.25rem;
-    margin-bottom: var(--space-sm);
+.metric-desc {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4a5568;
+    line-height: 1.45;
+    margin: 0 auto;
+    max-width: 210px;
 }
 
 /* --- Biography Section --- */

@@ -59,40 +59,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Counter Animation on Scroll
     const counters = document.querySelectorAll('.metric-number');
-    const speed = 200; // The lower the slower
 
     const animateCounters = () => {
         counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText.replace(/[^0-9]/g, ''); // Extract only numbers
+            const target = parseFloat(counter.getAttribute('data-target'));
+            if (isNaN(target)) return;
 
-                // Lower inc to slow and higher to fast
-                const inc = target / speed;
+            const prefix = counter.getAttribute('data-prefix') || '';
+            const suffix = counter.getAttribute('data-suffix') || '';
+            const duration = 1600; // ms
+            let startTime = null;
 
-                // Check if target is reached
-                if (count < target) {
-                    // Add inc to count and output in counter
-                    let currentCount = Math.ceil(count + inc);
-                    
-                    // Formatting the output back with '+' and 'Mil' if necessary
-                    if(target >= 1000) {
-                         counter.innerText = `+${Math.floor(currentCount / 1000)} Mil`;
-                    } else {
-                         counter.innerText = `${currentCount}+`;
-                    }
-                    
-                    // Call function every ms
-                    setTimeout(updateCount, 15);
+            const step = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                // Ease out cubic
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(easeOut * target);
+
+                counter.textContent = `${prefix}${current}${suffix}`;
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
                 } else {
-                    if(target >= 1000) {
-                        counter.innerText = `+${Math.floor(target / 1000)} Mil`;
-                    } else {
-                        counter.innerText = `${target}+`;
-                    }
+                    counter.textContent = `${prefix}${target}${suffix}`;
                 }
             };
-            updateCount();
+
+            counter.textContent = `${prefix}0${suffix}`;
+            requestAnimationFrame(step);
         });
     };
 
@@ -107,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, {
-            threshold: 0.5 // Trigger when 50% of the section is visible
+            threshold: 0.2 // Trigger when 20% of the section is visible
         });
 
         observer.observe(metricsSection);
