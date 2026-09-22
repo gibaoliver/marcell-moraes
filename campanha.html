@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalhe na Campanha | Marcell Moraes</title>
+    <title>Trabalhe na Campanha | Marcell Moraes - O Federal dos Animais</title>
+    <meta name="description" content="Junte-se a Marcell Moraes, o pioneiro da causa animal. Seja parte do movimento histórico e trabalhe na campanha do Federal dos Animais.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,187 +13,264 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles/global.css">
-    <link rel="stylesheet" href="styles/components.css">
     
     <!-- Tailwind and Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        corePlugins: { preflight: false }
+        corePlugins: { preflight: false },
+        theme: {
+          extend: {
+            colors: {
+              brand: '#fbbf24',
+              dark: '#0f172a'
+            }
+          }
+        }
       }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        .campaign-form-container {
+        body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .glass-panel {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
         }
-        .form-group {
-            margin-bottom: 1.5rem;
+        .text-gradient {
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #e2e8f0;
+        .hero-bg {
+            background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.15), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.1), transparent 40%);
         }
+        
+        /* Modal Styles */
+        #volunteerModal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #volunteerModal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        #volunteerModal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
         .form-input {
             width: 100%;
-            padding: 0.75rem 1rem;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem 1.25rem;
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            border-radius: 12px;
             color: #fff;
             transition: all 0.3s ease;
+            font-size: 1rem;
         }
         .form-input:focus {
             outline: none;
             border-color: #fbbf24;
-            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+            background: rgba(0, 0, 0, 0.5);
         }
-        .hero-custom {
-            padding-top: 120px;
-            padding-bottom: 80px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
+        
+        .btn-glow {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #000;
+            font-weight: 700;
+            border-radius: 99px;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
         }
-        @media (max-width: 768px) {
-            .hero-custom {
-                padding-top: 80px;
-                padding-bottom: 40px;
-            }
-            .campaign-form-container {
-                padding: 1.25rem;
-                margin-top: 1.5rem;
-            }
+        .btn-glow:hover {
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.6);
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="bg-[#0f172a] text-white">
+<body class="hero-bg antialiased">
     <!-- Navbar -->
-    <header id="main-header" class="navbar relative" style="background: rgba(15, 23, 42, 0.9); z-index: 50;">
-        <div class="container nav-content w-full" style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="logo">
-                <a href="index.html" class="flex items-center text-white" style="text-decoration: none;">
-                    <span class="logo-name" style="font-size: 1.25rem;">Marcell Moraes</span>
-                    <span class="logo-dot">.</span>
-                </a>
-            </div>
-            
-            <!-- Botão Desktop -->
-            <a href="index.html" class="btn btn-glass hidden md:inline-flex">Voltar ao Início</a>
-            
-            <!-- Toggle Mobile -->
-            <button class="mobile-toggle text-white md:hidden p-2 cursor-pointer" aria-label="Abrir menu" id="mobileToggle" style="background: transparent; border: none; outline: none;">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-            
-            <!-- Menu Mobile -->
-            <nav class="absolute top-full left-0 w-full bg-[#0f172a] hidden flex-col p-4 border-t border-gray-700 shadow-xl" id="navLinks" style="z-index: 40;">
-                <a href="index.html" class="text-white py-3 px-4 hover:bg-gray-800 rounded font-medium text-center" style="text-decoration: none;">Voltar ao Início</a>
-            </nav>
+    <header class="fixed top-0 w-full z-50 glass-panel !rounded-none !border-x-0 !border-t-0" style="background: rgba(15, 23, 42, 0.85);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-1 text-white hover:opacity-80 transition">
+                <span class="text-2xl font-bold tracking-tight">Marcell Moraes</span>
+                <span class="text-brand text-3xl leading-none">.</span>
+            </a>
+            <a href="index.html" class="hidden md:flex text-sm font-medium text-slate-300 hover:text-white transition">← Voltar ao Início</a>
         </div>
     </header>
 
-    <main>
-        <section class="hero-custom relative overflow-hidden">
-            <div class="hero-overlay"></div>
-            <div class="hero-orb orb-1"></div>
-            <div class="hero-orb orb-2"></div>
+    <!-- Main Content -->
+    <main class="pt-32 pb-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="container relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-                <div class="hero-content">
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight break-words">
-                        Faça Parte da Nossa <br class="md:hidden"><span class="text-[#fbbf24]">Campanha</span>
-                    </h1>
-                    <p class="text-lg text-gray-300 mb-8" style="line-height: 1.8;">
-                        A causa animal precisa de vozes fortes e pessoas dedicadas. Junte-se a nós nesta jornada para continuar protegendo quem não pode falar. Preencha seus dados ao lado e nossa equipe entrará em contato com você pelo WhatsApp.
-                    </p>
-                    <div class="flex items-center gap-4 text-gray-400">
-                        <i class="fas fa-users text-2xl text-[#fbbf24]"></i>
-                        <span>Seja um multiplicador da causa animal na sua região.</span>
+            <!-- Hero Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-brand text-sm font-semibold mb-6">
+                    <i class="fas fa-paw"></i> Junte-se ao Movimento
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                    Trabalhe na Campanha do <br class="hidden md:block"/>
+                    <span class="text-gradient">Federal dos Animais</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                    A causa animal precisa da sua voz. Seja parte da revolução histórica na Bahia ao lado de Marcell Moraes.
+                </p>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="space-y-12">
+                
+                <!-- Sec 1 -->
+                <div class="glass-panel p-8 md:p-12 relative overflow-hidden group hover:border-brand/30 transition-colors duration-500">
+                    <div class="absolute top-0 right-0 -mt-10 -mr-10 text-9xl text-slate-800 opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-700">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">A Maior Voz da Causa Animal na Bahia</h2>
+                        <p class="text-slate-300 text-lg leading-relaxed mb-6">
+                            Ao longo de anos de dedicação ininterrupta, <strong>Marcell Moraes</strong> se consolidou como o grande pioneiro da proteção dos animais no estado. Suas ações resgataram milhares de vidas e instituíram hospitais públicos e leis severas contra os maus-tratos. 
+                        </p>
+                        <p class="text-slate-300 text-lg leading-relaxed">
+                            Trabalhar nesta campanha significa defender ativamente os direitos daqueles que não podem se defender. O <strong>Federal dos animais</strong> precisa de pessoas corajosas, prontas para multiplicar essa mensagem em cada cidade, cada bairro e cada família baiana.
+                        </p>
                     </div>
                 </div>
-                
-                <div class="campaign-form-container">
-                    <h2 class="text-2xl font-bold mb-6 border-b border-gray-700 pb-4">Seus Dados</h2>
-                    <form id="campaignForm">
-                        <div class="form-group">
-                            <label class="form-label" for="nome">Nome Completo</label>
-                            <input type="text" id="nome" class="form-input" required placeholder="Seu nome">
+
+                <!-- Sec 2 -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-panel p-8 hover:border-brand/30 transition-colors duration-500">
+                        <div class="w-12 h-12 rounded-xl bg-brand/20 flex items-center justify-center text-brand text-2xl mb-6">
+                            <i class="fas fa-hands-helping"></i>
                         </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="form-group">
-                                <label class="form-label" for="idade">Idade</label>
-                                <input type="number" id="idade" class="form-input" required placeholder="Sua idade" min="16" max="100">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="whatsapp">WhatsApp</label>
-                                <input type="tel" id="whatsapp" class="form-input" required placeholder="(00) 00000-0000">
-                            </div>
+                        <h3 class="text-xl font-bold text-white mb-4">O Que Significa Ser Voluntário?</h3>
+                        <p class="text-slate-400 leading-relaxed">
+                            É atuar de forma ativa na conscientização sobre o respeito e o bem-estar animal. Você receberá materiais, informativos e total suporte para divulgar as propostas e o legado de quem realmente fez acontecer.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-panel p-8 hover:border-brand/30 transition-colors duration-500">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-6">
+                            <i class="fas fa-network-wired"></i>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="cidade">Cidade</label>
-                            <input type="text" id="cidade" class="form-input" required placeholder="Sua cidade">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="bairro">Bairro</label>
-                            <input type="text" id="bairro" class="form-input" required placeholder="Seu bairro">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-glow w-full flex justify-center items-center gap-2" style="font-size: 1.1rem; padding: 1rem; cursor: pointer; border: none; font-family: inherit;">
-                            <i class="fab fa-whatsapp text-xl"></i> Enviar e Falar no WhatsApp
-                        </button>
-                    </form>
+                        <h3 class="text-xl font-bold text-white mb-4">Alcance e Multiplicação</h3>
+                        <p class="text-slate-400 leading-relaxed">
+                            Ao se juntar ao time do <strong>Marcell Moraes</strong>, sua função principal é conectar pessoas. Explicar como a <strong>causa animal</strong> impacta a saúde pública e a sociedade, engajando novos defensores diariamente.
+                        </p>
+                    </div>
                 </div>
+
+                <!-- Sec 3 -->
+                <div class="glass-panel p-8 md:p-12 text-center">
+                    <h2 class="text-3xl font-bold text-white mb-6">Nossa Missão Não Pode Parar</h2>
+                    <p class="text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+                        Mais do que uma eleição, este é um compromisso de vida. Para ampliarmos a <strong>Causa animal</strong> a nível federal, precisamos estar unidos. Cadastre-se agora e comece a atuar como liderança na sua região.
+                    </p>
+                    
+                    <button onclick="openModal()" class="btn-glow px-10 py-5 text-lg inline-flex items-center gap-3">
+                        Quero Fazer Parte da Equipe <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
             </div>
-        </section>
+        </div>
     </main>
 
+    <!-- Registration Modal -->
+    <div id="volunteerModal" class="fixed inset-0 z-[100] invisible opacity-0 flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <!-- Modal Card -->
+        <div class="modal-content relative w-full max-w-lg glass-panel p-8 bg-[#0f172a]/90 shadow-2xl border-slate-700">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 hover:bg-slate-700">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 rounded-full bg-brand/10 text-brand text-3xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Junte-se à Equipe</h3>
+                <p class="text-slate-400">Preencha seus dados para receber o contato da nossa coordenação pelo WhatsApp.</p>
+            </div>
+
+            <form id="campaignForm" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2" for="nome">Nome Completo</label>
+                    <input type="text" id="nome" class="form-input" required placeholder="Como quer ser chamado?">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2" for="contato">Contato (WhatsApp)</label>
+                    <input type="tel" id="contato" class="form-input" required placeholder="(00) 00000-0000">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-2" for="cidade">Cidade / Estado</label>
+                    <input type="text" id="cidade" class="form-input" required placeholder="Onde você mora?">
+                </div>
+
+                <button type="submit" class="btn-glow w-full py-4 text-lg mt-4 flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-xl"></i> Enviar e Conectar
+                </button>
+                <p class="text-xs text-center text-slate-500 mt-4">Seus dados estão seguros conosco.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script for Modal and WhatsApp Redirect -->
     <script>
+        const modal = document.getElementById('volunteerModal');
+        
+        function openModal() {
+            modal.classList.remove('invisible');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.classList.add('invisible');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Form Submit
         document.getElementById('campaignForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
             const nome = document.getElementById('nome').value;
-            const idade = document.getElementById('idade').value;
-            const whatsapp = document.getElementById('whatsapp').value;
+            const contato = document.getElementById('contato').value;
             const cidade = document.getElementById('cidade').value;
-            const bairro = document.getElementById('bairro').value;
             
-            // WhatsApp target number
-            const targetNumber = '5571988670053';
+            const targetNumber = '5571988670053'; // Coordinator number (same from user's code)
             
-            // Construct message
-            const message = `Olá, quero participar da campanha! \n\n*Meu nome é:* ${nome}\n*Idade:* ${idade} anos\n*Cidade:* ${cidade}\n*Bairro:* ${bairro}\n*Meu WhatsApp:* ${whatsapp}`;
+            const message = `Olá! Quero trabalhar na campanha da Causa Animal com Marcell Moraes.\n\n*Nome:* ${nome}\n*Contato:* ${contato}\n*Cidade:* ${cidade}\n\nComo posso ajudar?`;
             
-            // Encode message for URL
             const encodedMessage = encodeURIComponent(message);
-            
-            // Redirect to WhatsApp
             const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodedMessage}`;
+            
             window.open(whatsappUrl, '_blank');
-        });
-
-        // Toggle do Menu Mobile
-        document.getElementById('mobileToggle').addEventListener('click', function() {
-            const navLinks = document.getElementById('navLinks');
-            if (navLinks.classList.contains('hidden')) {
-                navLinks.classList.remove('hidden');
-                navLinks.classList.add('flex');
-            } else {
-                navLinks.classList.add('hidden');
-                navLinks.classList.remove('flex');
-            }
+            closeModal();
+            this.reset();
         });
     </script>
 </body>
