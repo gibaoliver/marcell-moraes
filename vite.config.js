@@ -7,7 +7,8 @@ export default defineConfig({
       name: 'clean-urls',
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
-          if (req.url === '/justicaporacelbildes' || req.url === '/justicaporacelbildes/') {
+          if (req.url === '/justicaporacelbildes' || req.url === '/justicaporacelbildes/' ||
+              req.url === '/justicaalcebiades' || req.url === '/justicaalcebiades/') {
             req.url = '/justicaporacelbildes.html';
           }
           next();
@@ -15,7 +16,8 @@ export default defineConfig({
       },
       configurePreviewServer(server) {
         server.middlewares.use((req, res, next) => {
-          if (req.url === '/justicaporacelbildes' || req.url === '/justicaporacelbildes/') {
+          if (req.url === '/justicaporacelbildes' || req.url === '/justicaporacelbildes/' ||
+              req.url === '/justicaalcebiades' || req.url === '/justicaalcebiades/') {
             req.url = '/justicaporacelbildes.html';
           }
           next();

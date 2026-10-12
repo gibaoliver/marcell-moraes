@@ -4,6 +4,10 @@
     {
       "source": "/justicaporacelbildes",
       "destination": "/justicaporacelbildes.html"
+    },
+    {
+      "source": "/justicaalcebiades",
+      "destination": "/justicaporacelbildes.html"
     }
   ]
 }

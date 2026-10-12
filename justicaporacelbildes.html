@@ -3,8 +3,937 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justiça Acelbildes | Marcell Moraes</title>
+    <title>Conheça a história de Alcebíades, meu filho que tiraram a vida | Marcell Moraes</title>
+    <meta name="description" content="Reportagem especial sobre a trajetória, o afeto e as circunstâncias da trágica morte do macaco Alcebíades. Exigimos apuração rigorosa e justiça.">
+    <meta property="og:title" content="Conheça a história de Alcebíades, meu filho que tiraram a vida">
+    <meta property="og:description" content="A trajetória de afeto interrompida brutalmente: os fatos, as contradições e a busca incansável por justiça para Alcebíades.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="assets/alcebiades_memorial.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Report Special Styles */
+        :root {
+            --crimson: #c53030;
+            --crimson-light: #fff5f5;
+            --editorial-font: 'Merriweather', Georgia, serif;
+        }
+
+        body {
+            background-color: #fafbfc;
+            color: #24292f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+        }
+
+        .report-wrapper {
+            padding-top: 100px;
+            padding-bottom: 80px;
+        }
+
+        .report-article {
+            max-width: 860px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        /* Breadcrumbs & Badge */
+        .report-header-top {
+            padding: 2.5rem 3rem 1rem 3rem;
+        }
+
+        .report-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .report-breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .report-breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .report-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #ffebe9;
+            color: var(--crimson);
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: 1px solid rgba(197, 48, 48, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .report-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--crimson);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 rgba(197, 48, 48, 0.7);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(197, 48, 48, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(197, 48, 48, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 48, 48, 0); }
+        }
+
+        /* Headlines */
+        .report-title {
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            line-height: 1.2;
+            color: #0d1b2a;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.25rem;
+        }
+
+        .report-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            font-weight: 400;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 2rem;
+            font-family: var(--editorial-font);
+        }
+
+        /* Metadata & Share Bar */
+        .report-meta-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-top: 1px solid #edf2f7;
+            border-bottom: 1px solid #edf2f7;
+            margin-bottom: 2.5rem;
+        }
+
+        .report-author-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #0A192F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #C5A059;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(10, 25, 47, 0.15);
+        }
+
+        .author-text h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0;
+        }
+
+        .author-text p {
+            font-size: 0.8rem;
+            color: #718096;
+            margin: 0;
+        }
+
+        .report-share-buttons {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #4a5568;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .share-btn.whatsapp {
+            background-color: #25D366;
+            color: #ffffff;
+            border-color: #25D366;
+        }
+
+        .share-btn.whatsapp:hover {
+            background-color: #1ebc59;
+        }
+
+        /* Hero Image */
+        .report-hero-media {
+            margin: 0 3rem 3rem 3rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .report-hero-media img {
+            width: 100%;
+            max-height: 520px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-media-caption {
+            padding: 0.85rem 1.25rem;
+            background: #f7fafc;
+            border-top: 1px solid #edf2f7;
+            font-size: 0.82rem;
+            color: #718096;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Article Body Content */
+        .report-content {
+            padding: 0 3rem 3rem 3rem;
+            font-family: var(--editorial-font);
+            font-size: 1.125rem;
+            line-height: 1.85;
+            color: #2d3748;
+        }
+
+        .report-content p {
+            margin-bottom: 1.75rem;
+        }
+
+        /* Drop cap for first paragraph */
+        .report-content p.lead-paragraph::first-letter {
+            float: left;
+            font-size: 4.2rem;
+            line-height: 0.85;
+            padding-right: 0.75rem;
+            padding-top: 0.25rem;
+            font-weight: 800;
+            color: #0A192F;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .report-section-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0A192F;
+            margin: 2.75rem 0 1.25rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #edf2f7;
+            position: relative;
+        }
+
+        .report-section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: #C5A059;
+        }
+
+        /* Pull Quote */
+        .report-quote-box {
+            margin: 2.75rem 0;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, #0A192F 0%, #172A45 100%);
+            border-left: 6px solid #C5A059;
+            border-radius: 12px;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(10, 25, 47, 0.15);
+        }
+
+        .report-quote-box p {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #f7fafc;
+        }
+
+        .report-quote-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #C5A059;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Investigation Critical Points Box */
+        .investigation-box {
+            background-color: #FFF9F5;
+            border: 1px solid #FFE4D6;
+            border-radius: 12px;
+            padding: 1.75rem 2rem;
+            margin: 2.5rem 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .investigation-box-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #C53030;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .investigation-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .investigation-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.85rem;
+            font-size: 0.98rem;
+            color: #4A5568;
+            line-height: 1.6;
+        }
+
+        .investigation-list li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #C5A059;
+            font-size: 1rem;
+        }
+
+        /* Photos & Crime Report Evidence Section */
+        .evidence-section {
+            background-color: #0A192F;
+            border-radius: 16px;
+            padding: 2.75rem 2.5rem;
+            margin: 3.5rem 0 1.5rem 0;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .evidence-header {
+            text-align: center;
+            margin-bottom: 2.25rem;
+        }
+
+        .evidence-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #C5A059;
+            text-transform: uppercase;
+            background: rgba(197, 160, 89, 0.12);
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            margin-bottom: 0.75rem;
+        }
+
+        .evidence-header h3 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .evidence-header p {
+            font-size: 0.95rem;
+            color: #cbd5e0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .evidence-card {
+            background: #172A45;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .evidence-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(197, 160, 89, 0.4);
+        }
+
+        .evidence-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .evidence-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .evidence-card:hover .evidence-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .evidence-watermark {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .evidence-card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .evidence-card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .evidence-card-title i {
+            color: #C5A059;
+            font-size: 0.9rem;
+        }
+
+        .evidence-card-desc {
+            font-size: 0.85rem;
+            color: #a0aec0;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .evidence-card-footer {
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.75rem;
+            color: #718096;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Action Manifesto Box */
+        .manifesto-box {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
+            border: 2px solid #FEB2B2;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3.5rem 0 1.5rem 0;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 25px rgba(229, 62, 62, 0.08);
+        }
+
+        .manifesto-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.25rem auto;
+            border-radius: 50%;
+            background: #E53E3E;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            box-shadow: 0 6px 15px rgba(229, 62, 62, 0.25);
+        }
+
+        .manifesto-box h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #9B2C2C;
+            margin-bottom: 0.75rem;
+        }
+
+        .manifesto-box p {
+            font-size: 1rem;
+            color: #4A5568;
+            max-width: 640px;
+            margin: 0 auto 1.75rem auto;
+            line-height: 1.6;
+        }
+
+        .manifesto-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-manifesto {
+            background-color: #E53E3E;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+
+        .btn-manifesto:hover {
+            background-color: #C53030;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(229, 62, 62, 0.4);
+        }
+
+        .btn-manifesto-secondary {
+            background-color: #0A192F;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-manifesto-secondary:hover {
+            background-color: #172A45;
+            transform: translateY(-2px);
+        }
+
+        /* Active State in Nav */
+        .nav-links a.active {
+            color: var(--accent) !important;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .report-wrapper {
+                padding-top: 80px;
+                padding-bottom: 40px;
+            }
+            .report-article {
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            .report-header-top {
+                padding: 1.5rem 1.25rem 1rem 1.25rem;
+            }
+            .report-hero-media {
+                margin: 0 1.25rem 2rem 1.25rem;
+            }
+            .report-content {
+                padding: 0 1.25rem 2rem 1.25rem;
+                font-size: 1.05rem;
+            }
+            .evidence-section {
+                padding: 2rem 1.25rem;
+                border-radius: 12px;
+            }
+            .manifesto-box {
+                padding: 1.75rem 1.25rem;
+            }
+            .report-quote-box {
+                padding: 1.5rem;
+            }
+            .report-meta-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Main Navigation Header -->
+    <header id="main-header" class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                    <span class="logo-name">Marcell Moraes</span>
+                    <span class="logo-dot">.</span>
+                </a>
+            </div>
+            <button class="mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html#legado">Legado</a>
+                <a href="index.html#biografia">Biografia</a>
+                <a href="index.html#ecossistema">Ações</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="doacoes.html">Doações</a>
+                <a href="/justicaporacelbildes" class="active">Justiça Alcebíades</a>
+            </nav>
+            <a href="https://wa.me/5571999999999" class="btn btn-primary nav-cta">Fale Conosco</a>
+        </div>
+    </header>
+
+    <!-- Report Wrapper -->
+    <main class="report-wrapper">
+        <div class="container">
+            <article class="report-article">
+                
+                <!-- Report Header Top -->
+                <div class="report-header-top">
+                    <!-- Breadcrumbs -->
+                    <nav class="report-breadcrumb" aria-label="Navegação estrutural">
+                        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+                        <span>/</span>
+                        <a href="galeria.html">Especial</a>
+                        <span>/</span>
+                        <span>Caso Alcebíades</span>
+                    </nav>
+
+                    <!-- Alert Badge -->
+                    <div class="report-badge">
+                        <span class="pulse-dot"></span>
+                        Reportagem Especial • Cobertura Exclusiva
+                    </div>
+
+                    <!-- Main Title (Requested) -->
+                    <h1 class="report-title">
+                        Conheça a história de Alcebíades, meu filho que tiraram a vida
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p class="report-subtitle">
+                        A trajetória de amor, convivência e a perda irreparável: conheça os fatos, as contradições da captura e a exigência veemente de apuração criminal sobre as circunstâncias da morte do macaco Alcebíades.
+                    </p>
+
+                    <!-- Metadata Bar -->
+                    <div class="report-meta-bar">
+                        <div class="report-author-info">
+                            <div class="author-avatar">MM</div>
+                            <div class="author-text">
+                                <h4>Comunicação Oficial Marcell Moraes</h4>
+                                <p>Atualizado em Outubro de 2026 • 6 min de leitura</p>
+                            </div>
+                        </div>
+
+                        <div class="report-share-buttons">
+                            <a href="https://api.whatsapp.com/send?text=Conhe%C3%A7a%20a%20hist%C3%B3ria%20de%20Alceb%C3%ADades%2C%20meu%20filho%20que%20tiraram%20a%20vida%3A%20https%3A%2F%2Fmarcell-moraes.vercel.app%2Fjusticaporacelbildes" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp" title="Compartilhar no WhatsApp">
+                                <i class="fab fa-whatsapp"></i> Compartilhar
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?text=Justi%C3%A7a%20por%20Alceb%C3%ADades%20-%20Conhe%C3%A7a%20a%20hist%C3%B3ria%20do%20macaco%20de%20Marcell%20Moraes&url=https%3A%2F%2Fmarcell-moraes.vercel.app%2Fjusticaporacelbildes" target="_blank" rel="noopener noreferrer" class="share-btn" title="Compartilhar no X">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+                            <button class="share-btn" id="copyLinkBtn" title="Copiar link" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copiado com sucesso!');">
+                                <i class="fas fa-link"></i> Copiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image with Caption -->
+                <div class="report-hero-media">
+                    <img src="assets/alcebiades_memorial.jpg" alt="Alcebíades, macaco-prego e companheiro de Marcell Moraes">
+                    <div class="hero-media-caption">
+                        <span>Alcebíades: olhar expressivo e anos de convivência afetuosa como membro da família.</span>
+                        <span>Foto: Arquivo Pessoal / Memorial</span>
+                    </div>
+                </div>
+
+                <!-- Article Body Content -->
+                <div class="report-content">
+                    
+                    <p class="lead-paragraph">
+                        Para quem observa de longe, ele era um macaco-prego. Para Marcell Moraes e todos que conviveram em sua intimidade, Alcebíades — carinhosamente chamado de "Bill" — era muito mais que um animal resgatado: era um filho de quatro patas, dotado de inteligência singular, sensibilidade e um laço de afeto incondicional que desafiava qualquer convenção.
+                    </p>
+
+                    <p>
+                        A partida precoce e revoltante de Alcebíades não representa apenas uma perda irreparável para sua família humana; transformou-se no estopim de uma denúncia contundente contra a desumanidade, o preconceito e as graves lacunas no trato de animais silvestres sob guarda provisória no estado da Bahia.
+                    </p>
+
+                    <h2 class="report-section-heading">O Começo de Tudo: Anos de Convívio, Afeto e Dignidade</h2>
+
+                    <p>
+                        A história de Alcebíades se entrelaça diretamente com a essência da luta que Marcell Moraes travou por mais de duas décadas em favor dos animais. Vítima inicial do tráfico e da degradação ambiental, Alcebíades encontrou nos braços de Marcell o acolhimento, a nutrição balanceada e os cuidados veterinários que lhe garantiram uma vida saudável e serena ao longo de anos.
+                    </p>
+
+                    <p>
+                        Ele não vivia isolado em uma jaula fria; participava da rotina, reconhecia a voz de seu tutor, expressava sentimentos e construiu uma relação de profunda confiança. Era o símbolo vivo de que todo ser senciente é capaz de retribuir o amor quando tratado com respeito.
+                    </p>
+
+                    <!-- Pull Quote -->
+                    <div class="report-quote-box">
+                        <p>
+                            "Ele não era só um animal. Era meu filho, comia comigo, dormia ao meu lado, entendia meus momentos de dor e de alegria. Tiraram a vida dele covardemente, e eu não vou sossegar até que os responsáveis paguem perante a Justiça!"
+                        </p>
+                        <div class="report-quote-author">
+                            <i class="fas fa-quote-left"></i> Marcell Moraes — Defensor dos Animais
+                        </div>
+                    </div>
+
+                    <h2 class="report-section-heading">Os Fatos de Outubro de 2026: A Fuga e o Momento de Tensão</h2>
+
+                    <p>
+                        Em outubro de 2026, um incidente inesperado deu início ao pesadelo. Alcebíades conseguiu sair do imóvel e adentrou residências vizinhas em um condomínio na capital baiana. Desorientado e assustado com a movimentação, o pequeno primata não representava risco letal premeditado, mas tornou-se alvo de pânico e intervenções precipitadas.
+                    </p>
+
+                    <p>
+                        Relatos apontam que, durante o período em que esteve fora do ambiente seguro de sua casa, Alcebíades teve acesso a substâncias inapropriadas e potencialmente letais, incluindo álcool, solventes ou medicamentos em residências onde ingressou. Moradores e forças de segurança acionaram a polícia ambiental (COPPA) para a captura.
+                    </p>
+
+                    <!-- Critical Investigation Box -->
+                    <div class="investigation-box">
+                        <div class="investigation-box-header">
+                            <i class="fas fa-triangle-exclamation"></i>
+                            Pontos Críticos Sob Investigação da Equipe Jurídica
+                        </div>
+                        <ul class="investigation-list">
+                            <li><strong>Ingestão Forçada ou Exposição a Tóxicos:</strong> Apuração sobre o acesso do animal a bebidas alcoólicas e substâncias químicas durante a invasão no condomínio.</li>
+                            <li><strong>Protocolo de Captura e Contenção:</strong> Avaliação se houve uso desproporcional de força ou administração inadequada de sedativos durante o resgate pela polícia ambiental.</li>
+                            <li><strong>Condições do CETAS/Inema:</strong> Como um animal que chegou vivo e sob custódia de órgãos estatais veio a óbito no mesmo dia sem socorro emergencial intensivo?</li>
+                            <li><strong>Laudo Toxicológico e Necropsia:</strong> A exigência de perícia técnica independente e isenta para constatar a verdadeira <em>causa mortis</em>.</li>
+                        </ul>
+                    </div>
+
+                    <h2 class="report-section-heading">A Captura e a Morte Brutal: As Contradições que Clamam por Resposta</h2>
+
+                    <p>
+                        Após a contenção do animal, Alcebíades foi entregue com vida e encaminhado ao Centro de Triagem de Animais Silvestres (CETAS), órgão sob gerência do Inema. Horas depois, veio a notícia devastadora: o animal estava morto.
+                    </p>
+
+                    <p>
+                        A rapidez com que a vida de Alcebíades se extinguiu levantou imediatas suspeitas de envenenamento criminoso, omissão de socorro emergencial ou imperícia crassa na condução veterinária. Para Marcell Moraes, a tese de morte natural ou simples acidente não se sustenta diante de um animal forte e com acompanhamento constante.
+                    </p>
+
+                    <p>
+                        "Nós queremos as imagens das câmeras, queremos os laudos de todos os medicamentos e substâncias encontradas no organismo dele. Quem colocou veneno ou álcool? Quem negligenciou o socorro imediato? Não vão enterrar essa história sem que a verdade venha à tona", afirma Marcell.
+                    </p>
+
+                    <!-- EVIDENCE / PHOTO CRIME REPORT SECTION -->
+                    <section class="evidence-section" id="evidencias">
+                        <div class="evidence-header">
+                            <span class="evidence-tag"><i class="fas fa-camera"></i> Registros Documentais</span>
+                            <h3>Fotos da Reportagem & Evidências do Caso</h3>
+                            <p>Documentação fotográfica, dossiê pericial e o acervo que comprova a trajetória e embasa os pedidos de investigação criminal.</p>
+                        </div>
+
+                        <div class="evidence-grid">
+                            
+                            <!-- Card 1: Dossiê Investigativo -->
+                            <div class="evidence-card">
+                                <div class="evidence-img-wrap">
+                                    <img src="assets/alcebiades_investigacao.jpg" alt="Dossiê investigativo do Caso Alcebíades" loading="lazy">
+                                    <span class="evidence-watermark">Dossiê Jurídico</span>
+                                </div>
+                                <div class="evidence-card-body">
+                                    <h4 class="evidence-card-title">
+                                        <i class="fas fa-folder-open"></i> Inquérito & Pedido de Perícia
+                                    </h4>
+                                    <p class="evidence-card-desc">
+                                        Documentação oficial protocolada solicitando necropsia independente, exames toxicológicos detalhados e apuração de crime contra a fauna.
+                                    </p>
+                                    <div class="evidence-card-footer">
+                                        <span>Status: Em Andamento</span>
+                                        <span>Polícia Civil / MP-BA</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Memória Alcebíades -->
+                            <div class="evidence-card">
+                                <div class="evidence-img-wrap">
+                                    <img src="assets/alcebiades_memorial.jpg" alt="Alcebíades em vida" loading="lazy">
+                                    <span class="evidence-watermark">Acervo Afetivo</span>
+                                </div>
+                                <div class="evidence-card-body">
+                                    <h4 class="evidence-card-title">
+                                        <i class="fas fa-heart"></i> Vida e Convivência Familiar
+                                    </h4>
+                                    <p class="evidence-card-desc">
+                                        Registro da convivência de Alcebíades no seio familiar de Marcell Moraes, comprovando as condições de saúde física, nutrição e afeto.
+                                    </p>
+                                    <div class="evidence-card-footer">
+                                        <span>Origem: Arquivo Pessoal</span>
+                                        <span>Salvador / BA</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Evidência Pericial & Ocorrência -->
+                            <div class="evidence-card">
+                                <div class="evidence-img-wrap" style="background: linear-gradient(135deg, #1A202C 0%, #2D3748 100%); display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center; padding: 1.5rem;">
+                                        <i class="fas fa-file-shield" style="font-size: 3.5rem; color: #C5A059; margin-bottom: 0.75rem;"></i>
+                                        <div style="color: #ffffff; font-weight: 700; font-size: 0.95rem;">Laudo Toxicológico Pericial</div>
+                                        <div style="color: #A0AEC0; font-size: 0.75rem; margin-top: 0.25rem;">Exame Requisitado Oficialmente</div>
+                                    </div>
+                                    <span class="evidence-watermark" style="background: rgba(197, 48, 48, 0.9);">Perícia Solicitada</span>
+                                </div>
+                                <div class="evidence-card-body">
+                                    <h4 class="evidence-card-title">
+                                        <i class="fas fa-microscope"></i> Análise de Tóxicos e Substâncias
+                                    </h4>
+                                    <p class="evidence-card-desc">
+                                        Requerimento judicial para rastrear venenos, fármacos ou álcool no sangue e tecidos de Alcebíades após a custódia do Estado.
+                                    </p>
+                                    <div class="evidence-card-footer">
+                                        <span>Exigência: Laudo Imparcial</span>
+                                        <span>Protocolo Requisitado</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <h2 class="report-section-heading">Um Clamor que Não se Calará: Justiça por Alcebíades</h2>
+
+                    <p>
+                        A comoção pública gerada pela perda de Alcebíades atravessou Salvador e ecoou em todo o Brasil. Protetores independentes, ONGs e cidadãos indignados uniram-se à dor de Marcell Moraes, compreendendo que a vida de um animal não pode ser descartada com desdém burocrático.
+                    </p>
+
+                    <p>
+                        "Se fizeram isso com o meu filho, que tinha visibilidade e alguém para defendê-lo, imaginem o que acontece diariamente com milhares de animais invisíveis nos centros de triagem e nas mãos de agressores impunes. A morte de Alcebíades não será em vão. Nós vamos até o fim!", conclui Marcell Moraes.
+                    </p>
+
+                    <!-- Manifesto & Call to Action -->
+                    <div class="manifesto-box">
+                        <div class="manifesto-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <h3>Manifesto: Justiça por Alcebíades!</h3>
+                        <p>
+                            Não aceitaremos impunidade ou explicações rasas. Junte-se a Marcell Moraes e à comunidade baiana na exigência de um inquérito rigoroso e da responsabilização de quem tirou a vida de Alcebíades.
+                        </p>
+                        <div class="manifesto-actions">
+                            <a href="https://api.whatsapp.com/send?text=Estou%20ao%20lado%20de%20Marcell%20Moraes%20exigindo%20Justi%C3%A7a%20por%20Alceb%C3%ADades!%20Acesse%20a%20reportagem%3A%20https%3A%2F%2Fmarcell-moraes.vercel.app%2Fjusticaporacelbildes" target="_blank" rel="noopener noreferrer" class="btn-manifesto">
+                                <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
+                            </a>
+                            <a href="https://wa.me/5571999999999?text=Ol%C3%A1%2C%20quero%20manifestar%20meu%20apoio%20ao%20movimento%20Justi%C3%A7a%20por%20Alceb%C3%ADades!" target="_blank" rel="noopener noreferrer" class="btn-manifesto-secondary">
+                                <i class="fas fa-envelope"></i> Enviar Mensagem de Apoio
+                            </a>
+                        </div>
+                    </div>
+
+                </div> <!-- End Report Content -->
+
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer" class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <span class="logo-name">Marcell Moraes</span>
+                <span class="logo-dot">.</span>
+                <p>Uma vida inteira dedicada à proteção animal e à construção de políticas públicas que transformam vidas.</p>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Fique Conectado</h4>
+                <p>Receba atualizações sobre os desdobramentos do caso Alcebíades e as ações em defesa dos animais.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Obrigado pelo apoio!');">
+                    <input type="email" placeholder="Seu melhor e-mail" required>
+                    <button type="submit" class="btn btn-primary">Acompanhar</button>
+                </form>
+            </div>
+            
+            <div class="footer-links">
+                <a href="index.html#legado">Legado</a>
+                <a href="index.html#biografia">Biografia</a>
+                <a href="index.html#ecossistema">Ações</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="doacoes.html">Doações</a>
+                <a href="/justicaporacelbildes">Justiça Alcebíades</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Marcell Moraes. Todos os direitos reservados. Justiça por Alcebíades.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/main.js"></script>
 </body>
 </html>
