@@ -1,8 +1,8 @@
 /* ==========================================================================
-   SISTEMA DE NOTÍCIAS (MOBILE-FIRST & RESPONSIVO)
+   SISTEMA DE NOTÍCIAS & PAINEL EDITORIAL (MOBILE-FIRST & RESPONSIVO)
    ========================================================================== */
 
-/* --- Utilitários Gerais do Módulo --- */
+/* --- Utilitários Gerais --- */
 .hidden {
     display: none !important;
 }
@@ -13,6 +13,22 @@
     background-color: var(--bg-light);
 }
 
+/* Badge de Categoria */
+.badge-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(197, 160, 89, 0.15);
+    color: #926f2a;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    width: fit-content;
+}
+
 /* ==========================================================================
    1. PÁGINA PÚBLICA DE NOTÍCIAS (/noticias.html)
    ========================================================================== */
@@ -20,7 +36,7 @@
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     color: #fff;
     padding: 3rem 0;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
 
@@ -37,7 +53,39 @@
     font-size: 1.05rem;
 }
 
-/* Grid Mobile-First: 1 coluna no telemóvel, 2 em tablet, 3 em desktop */
+/* Filtro por Categorias na Página Pública */
+.category-filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.filter-pill {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    color: var(--text-main);
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-pill:hover,
+.filter-pill.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.filter-pill.active {
+    box-shadow: var(--shadow-sm);
+}
+
+/* Grid Mobile-First */
 .news-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -101,16 +149,22 @@
     flex-grow: 1;
 }
 
+.news-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
 .news-card-date {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
     font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    margin-bottom: 0.6rem;
+    font-weight: 500;
+    color: var(--text-muted);
 }
 
 .news-card-title {
@@ -217,7 +271,8 @@
     margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .article-title {
@@ -261,23 +316,9 @@
     }
 }
 
-/* Estilos para o HTML gerado pelo editor Rich Text (Quill) */
-.article-body p {
-    margin-bottom: 1.25rem;
-}
-
-.article-body h2,
-.article-body h3 {
-    margin-top: 2rem;
-    margin-bottom: 0.85rem;
-    color: var(--primary);
-}
-
-.article-body ul,
-.article-body ol {
-    margin: 0 0 1.25rem 1.5rem;
-}
-
+.article-body p { margin-bottom: 1.25rem; }
+.article-body h2, .article-body h3 { margin-top: 2rem; margin-bottom: 0.85rem; color: var(--primary); }
+.article-body ul, .article-body ol { margin: 0 0 1.25rem 1.5rem; }
 .article-body blockquote {
     border-left: 4px solid var(--accent);
     padding: 0.75rem 1.25rem;
@@ -286,13 +327,9 @@
     margin: 1.5rem 0;
     border-radius: 0 8px 8px 0;
 }
+.article-body a { color: var(--accent); text-decoration: underline; }
 
-.article-body a {
-    color: var(--accent);
-    text-decoration: underline;
-}
-
-/* Galeria de Fotos da Matéria */
+/* Galeria de Fotos */
 .article-gallery-section {
     padding: 2rem 1.5rem 3rem;
     border-top: 1px solid #edf2f7;
@@ -344,7 +381,7 @@
     transform: scale(1.06);
 }
 
-/* Lightbox Modal para ampliar fotos da galeria */
+/* Lightbox Modal */
 .lightbox-modal {
     position: fixed;
     inset: 0;
@@ -381,11 +418,12 @@
 }
 
 /* ==========================================================================
-   3. PAINEL DE ADMINISTRAÇÃO (/admin.html)
+   3. PAINEL DE ADMINISTRAÇÃO (/admin.html) COM SIDEBAR
    ========================================================================== */
 .admin-body {
     background-color: #f1f5f9;
     min-height: 100vh;
+    margin: 0;
 }
 
 /* Ecrã de Login */
@@ -420,52 +458,206 @@
     margin-bottom: 1.75rem;
 }
 
-/* Topbar do Painel */
-.admin-topbar {
-    background: var(--primary);
-    color: #fff;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    box-shadow: var(--shadow-sm);
-}
-
-.admin-topbar-inner {
+/* Topbar Mobile (só visível em telas menores que 992px) */
+.admin-mobile-topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    padding: 1rem 1.25rem;
+    background: var(--primary);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.admin-topbar-title {
+@media (min-width: 992px) {
+    .admin-mobile-topbar {
+        display: none;
+    }
+}
+
+.admin-mobile-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+/* Layout com Menu Lateral (Sidebar) */
+.admin-layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Menu Lateral (Sidebar) */
+.admin-sidebar {
+    width: 270px;
+    background-color: #0A192F;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 110;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 991px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+    }
+    .admin-sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 105;
+    display: none;
+}
+
+.sidebar-backdrop.active {
+    display: block;
+}
+
+.admin-sidebar-header {
+    padding: 1.75rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar-brand {
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: 800;
     color: #fff;
     display: flex;
     align-items: center;
     gap: 0.6rem;
 }
 
-.admin-user-actions {
+.admin-sidebar-subtitle {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* Navegação do Menu */
+.admin-sidebar-nav {
+    flex-grow: 1;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-menu-btn {
     display: flex;
     align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1.1rem;
+    color: rgba(255, 255, 255, 0.75);
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu-btn i {
+    font-size: 1.15rem;
+    width: 22px;
+    text-align: center;
+}
+
+.sidebar-menu-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-menu-btn.active {
+    color: #fff;
+    background: var(--accent);
+    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
+}
+
+.sidebar-menu-btn.active i {
+    color: #fff;
+}
+
+/* Rodapé do Menu Lateral */
+.admin-sidebar-footer {
+    padding: 1.25rem 1.25rem 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.admin-user-tag {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    word-break: break-all;
+}
+
+/* Área de Conteúdo Principal */
+.admin-main-viewport {
+    flex: 1;
+    margin-left: 270px;
+    padding: 2.25rem 2.5rem 4rem;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 991px) {
+    .admin-main-viewport {
+        margin-left: 0;
+        padding: 1.5rem 1rem 3rem;
+    }
+}
+
+.admin-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
     gap: 1rem;
-    font-size: 0.875rem;
 }
 
-/* Container Principal do Admin */
-.admin-container {
-    max-width: 960px;
-    margin: 2rem auto 4rem;
-    padding: 0 1rem;
+.admin-page-header h1 {
+    font-size: 1.75rem;
+    color: var(--primary);
+    margin: 0;
 }
 
+.admin-page-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+}
+
+/* Card Padrão do Admin */
 .admin-card {
     background: #fff;
     border-radius: 14px;
-    padding: 1.5rem;
+    padding: 1.75rem;
     box-shadow: var(--shadow-sm);
     border: 1px solid rgba(0, 0, 0, 0.05);
     margin-bottom: 2rem;
@@ -478,13 +670,14 @@
 }
 
 .admin-card h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid #e2e8f0;
+    color: var(--primary);
 }
 
-/* Formulário */
+/* Formulários */
 .form-group {
     margin-bottom: 1.35rem;
 }
@@ -505,6 +698,7 @@
     font-family: var(--font-sans);
     font-size: 0.98rem;
     transition: border-color 0.2s, box-shadow 0.2s;
+    background: #fff;
 }
 
 .form-control:focus {
@@ -513,7 +707,7 @@
     box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
 }
 
-/* Quill Rich Text Editor Wrapper */
+/* Quill Editor */
 .editor-wrapper {
     border-radius: 8px;
     overflow: hidden;
@@ -582,7 +776,7 @@
     border: 1px solid #cbd5e1;
 }
 
-/* Alertas e Barra de Progresso */
+/* Alertas & Progresso */
 .alert-box {
     padding: 0.85rem 1rem;
     border-radius: 8px;
@@ -622,32 +816,43 @@
     transition: width 0.3s ease;
 }
 
-/* Lista de Notícias no Admin */
-.admin-news-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.85rem 0;
+/* Tabela de Listagem de Notícias & Categorias */
+.admin-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.92rem;
+}
+
+.admin-table th {
+    background: #f8fafc;
+    padding: 0.85rem 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.admin-table td {
+    padding: 1rem;
     border-bottom: 1px solid #f1f5f9;
-    flex-wrap: wrap;
+    vertical-align: middle;
 }
 
-.admin-news-item:last-child {
-    border-bottom: none;
+.admin-table tr:hover td {
+    background: #f8fafc;
 }
 
-.admin-news-info {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-}
-
-.admin-news-info img {
-    width: 56px;
-    height: 42px;
+.table-news-cover {
+    width: 60px;
+    height: 44px;
     object-fit: cover;
     border-radius: 6px;
+    background: #e2e8f0;
 }
 
 .btn-danger-sm {
@@ -659,9 +864,21 @@
     font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .btn-danger-sm:hover {
     background: #fecaca;
 }
 
+.search-filter-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.search-filter-row input,
+.search-filter-row select {
+    max-width: 300px;
+}

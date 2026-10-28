@@ -91,6 +91,7 @@ async function carregarMateria() {
 
         const titulo = escaparHtml(dados.titulo);
         const subtitulo = escaparHtml(dados.subtitulo || '');
+        const categoria = escaparHtml(dados.categoria || 'Geral');
         const dataFormatada = formatarDataCompleta(dados.criado_em);
         const capaUrl = dados.capa_url || '';
         const corpoFormatado = dados.corpo || '';
@@ -127,8 +128,10 @@ async function carregarMateria() {
                     <i class="fas fa-arrow-left"></i> Voltar para todas as notícias
                 </a>
                 <div class="article-meta">
-                    <i class="far fa-clock"></i>
-                    <span>${dataFormatada}</span>
+                    <span class="badge-category">${categoria}</span>
+                    <span style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                        <i class="far fa-clock"></i> ${dataFormatada}
+                    </span>
                 </div>
                 <h1 class="article-title">${titulo}</h1>
                 ${subtitulo ? `<p class="article-subtitle">${subtitulo}</p>` : ''}

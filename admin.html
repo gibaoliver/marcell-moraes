@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Notícias | Marcell Moraes</title>
+    <title>Painel Editorial de Notícias | Marcell Moraes</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,14 +29,14 @@
     <section id="auth-section" class="admin-auth-wrapper">
         <div class="admin-login-card">
             <h1><i class="fas fa-lock" style="color: var(--accent);"></i> Painel Editorial</h1>
-            <p>Autentique-se para gerir e publicar notícias</p>
+            <p>Autentique-se para gerir notícias e categorias</p>
 
             <div id="login-alert" class="alert-box alert-error hidden"></div>
 
             <form id="admin-login-form">
                 <div class="form-group">
                     <label for="admin-email">E-mail</label>
-                    <input type="email" id="admin-email" class="form-control" placeholder="admin@marcellmoraes.com.br" required autocomplete="email">
+                    <input type="email" id="admin-email" class="form-control" placeholder="admin@admin.com" required autocomplete="email">
                 </div>
 
                 <div class="form-group">
@@ -58,101 +58,253 @@
     </section>
 
     <!-- =================================================================
-         2. PAINEL DE ADMINISTRAÇÃO (Oculto até autenticação no Firebase)
+         2. PAINEL DE ADMINISTRAÇÃO COM MENU LATERAL (SIDEBAR)
          ================================================================= -->
     <div id="panel-section" class="hidden">
-        <!-- Barra Superior -->
-        <header class="admin-topbar">
-            <div class="container admin-topbar-inner">
-                <div class="admin-topbar-title">
-                    <i class="fas fa-newspaper" style="color: var(--accent);"></i>
-                    <span>Gestão de Notícias | Marcell Moraes</span>
-                </div>
-                <div class="admin-user-actions">
-                    <span id="admin-user-email"></span>
-                    <a href="noticias.html" target="_blank" class="btn btn-outline-light" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
-                        Ver Página Pública <i class="fas fa-external-link-alt" style="margin-left: 0.35rem;"></i>
-                    </a>
-                    <button id="btn-logout" class="btn btn-primary" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
-                        <i class="fas fa-sign-out-alt" style="margin-right: 0.35rem;"></i> Sair
-                    </button>
-                </div>
-            </div>
+        
+        <!-- Topbar Mobile (visível apenas em telas menores) -->
+        <header class="admin-mobile-topbar">
+            <button id="sidebar-toggle-btn" class="admin-mobile-btn" aria-label="Abrir Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span style="font-weight: 700; font-size: 1.05rem;">Painel Marcell Moraes</span>
+            <button id="btn-logout-mobile" class="admin-mobile-btn" aria-label="Sair" title="Sair">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
         </header>
 
-        <!-- Conteúdo do Painel -->
-        <main class="admin-container">
-            <!-- Card: Formulário de Nova Publicação -->
-            <div class="admin-card">
-                <h2><i class="fas fa-plus-circle" style="color: var(--accent); margin-right: 0.4rem;"></i> Publicar Nova Matéria</h2>
+        <div class="admin-layout-wrapper">
+            <!-- Backdrop para fechar o menu no mobile -->
+            <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
-                <div id="form-feedback" class="alert-box hidden"></div>
-
-                <form id="news-form">
-                    <!-- Título -->
-                    <div class="form-group">
-                        <label for="news-title">Título da Notícia *</label>
-                        <input type="text" id="news-title" class="form-control" placeholder="Ex: Mutirão de castração atende mais de 500 animais em Salvador" required>
+            <!-- MENU LATERAL (SIDEBAR) -->
+            <aside id="admin-sidebar" class="admin-sidebar">
+                <div class="admin-sidebar-header">
+                    <div class="admin-sidebar-brand">
+                        <i class="fas fa-newspaper" style="color: var(--accent);"></i>
+                        <span>Marcell Moraes</span>
                     </div>
-
-                    <!-- Subtítulo -->
-                    <div class="form-group">
-                        <label for="news-subtitle">Subtítulo / Linha Fina *</label>
-                        <input type="text" id="news-subtitle" class="form-control" placeholder="Breve resumo que complementa o título principal" required>
-                    </div>
-
-                    <!-- Corpo da Notícia (Quill.js Rich Text) -->
-                    <div class="form-group">
-                        <label>Corpo da Notícia *</label>
-                        <div class="editor-wrapper">
-                            <div id="editor-container"></div>
-                        </div>
-                    </div>
-
-                    <!-- Uploads: Foto de Capa + Galeria de Fotos -->
-                    <div class="upload-grid form-group">
-                        <!-- Upload Capa -->
-                        <div class="file-drop-area">
-                            <i class="fas fa-image" style="font-size: 1.75rem; color: var(--accent);"></i>
-                            <label for="news-cover" style="margin-top: 0.5rem;">Foto de Capa Principal *</label>
-                            <p style="font-size: 0.78rem; color: var(--text-muted);">JPG, PNG ou WEBP (Recomendado: 1200x675px)</p>
-                            <input type="file" id="news-cover" accept="image/*" required>
-                            <div id="cover-preview" class="preview-thumbnails"></div>
-                        </div>
-
-                        <!-- Upload Múltiplo Galeria -->
-                        <div class="file-drop-area">
-                            <i class="fas fa-images" style="font-size: 1.75rem; color: var(--accent);"></i>
-                            <label for="news-gallery" style="margin-top: 0.5rem;">Galeria de Fotos (Opcional)</label>
-                            <p style="font-size: 0.78rem; color: var(--text-muted);">Selecione várias fotos para o final da matéria</p>
-                            <input type="file" id="news-gallery" accept="image/*" multiple>
-                            <div id="gallery-preview" class="preview-thumbnails"></div>
-                        </div>
-                    </div>
-
-                    <!-- Barra de Progresso de Upload -->
-                    <div id="upload-progress-box" class="progress-container hidden">
-                        <p id="upload-status-text" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Enviando arquivos...</p>
-                        <div class="progress-bar-bg">
-                            <div id="upload-progress-bar" class="progress-bar-fill"></div>
-                        </div>
-                    </div>
-
-                    <!-- Botão de Submissão -->
-                    <button type="submit" id="btn-publish" class="btn btn-primary btn-lg btn-block" style="margin-top: 1rem;">
-                        <i class="fas fa-cloud-upload-alt" style="margin-right: 0.5rem;"></i> Publicar Notícia
-                    </button>
-                </form>
-            </div>
-
-            <!-- Card: Lista de Matérias Publicadas -->
-            <div class="admin-card">
-                <h2><i class="fas fa-list-ul" style="color: var(--accent); margin-right: 0.4rem;"></i> Matérias Publicadas</h2>
-                <div id="admin-news-list">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">A carregar matérias...</p>
+                    <div class="admin-sidebar-subtitle">Painel de Notícias</div>
                 </div>
-            </div>
-        </main>
+
+                <!-- Lista de Navegação do Menu Lateral -->
+                <nav class="admin-sidebar-nav">
+                    <button type="button" id="nav-btn-create" class="sidebar-menu-btn active">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Criar Notícia</span>
+                    </button>
+
+                    <button type="button" id="nav-btn-list" class="sidebar-menu-btn">
+                        <i class="fas fa-list-ul"></i>
+                        <span>Listagem</span>
+                    </button>
+
+                    <button type="button" id="nav-btn-categories" class="sidebar-menu-btn">
+                        <i class="fas fa-tags"></i>
+                        <span>Categorias</span>
+                    </button>
+                </nav>
+
+                <!-- Rodapé da Sidebar -->
+                <div class="admin-sidebar-footer">
+                    <div class="admin-user-tag">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="admin-user-email"></span>
+                    </div>
+
+                    <a href="noticias.html" target="_blank" class="btn btn-outline-light" style="padding: 0.5rem; font-size: 0.85rem; text-align: center;">
+                        <i class="fas fa-external-link-alt" style="margin-right: 0.4rem;"></i> Ver Página Pública
+                    </a>
+
+                    <button id="btn-logout" class="btn btn-primary" style="padding: 0.5rem; font-size: 0.85rem;">
+                        <i class="fas fa-sign-out-alt" style="margin-right: 0.4rem;"></i> Sair da Conta
+                    </button>
+                </div>
+            </aside>
+
+            <!-- ÁREA PRINCIPAL COM AS TELAS -->
+            <main class="admin-main-viewport">
+
+                <!-- =========================================================
+                     ABA 1: CRIAR NOTÍCIA
+                     ========================================================= -->
+                <section id="view-create" class="admin-tab-view">
+                    <div class="admin-page-header">
+                        <div>
+                            <h1>Criar Notícia</h1>
+                            <p>Preencha os dados abaixo para publicar uma nova matéria no portal</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-card">
+                        <div id="form-feedback" class="alert-box hidden"></div>
+
+                        <form id="news-form">
+                            <!-- Título -->
+                            <div class="form-group">
+                                <label for="news-title">Título da Notícia *</label>
+                                <input type="text" id="news-title" class="form-control" placeholder="Ex: Mutirão de castração atende mais de 500 animais em Salvador" required>
+                            </div>
+
+                            <!-- Subtítulo e Categoria lado a lado -->
+                            <div class="upload-grid">
+                                <div class="form-group">
+                                    <label for="news-subtitle">Subtítulo / Linha Fina *</label>
+                                    <input type="text" id="news-subtitle" class="form-control" placeholder="Breve resumo da matéria" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="news-category">Categoria *</label>
+                                    <select id="news-category" class="form-control" required>
+                                        <option value="" disabled selected>A carregar categorias...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Corpo da Notícia (Quill.js Rich Text) -->
+                            <div class="form-group">
+                                <label>Corpo da Notícia *</label>
+                                <div class="editor-wrapper">
+                                    <div id="editor-container"></div>
+                                </div>
+                            </div>
+
+                            <!-- Uploads: Foto de Capa + Galeria de Fotos -->
+                            <div class="upload-grid form-group">
+                                <!-- Upload Capa -->
+                                <div class="file-drop-area">
+                                    <i class="fas fa-image" style="font-size: 1.75rem; color: var(--accent);"></i>
+                                    <label for="news-cover" style="margin-top: 0.5rem;">Foto de Capa Principal *</label>
+                                    <p style="font-size: 0.78rem; color: var(--text-muted);">JPG, PNG ou WEBP (Recomendado: 1200x675px)</p>
+                                    <input type="file" id="news-cover" accept="image/*" required>
+                                    <div id="cover-preview" class="preview-thumbnails"></div>
+                                </div>
+
+                                <!-- Upload Múltiplo Galeria -->
+                                <div class="file-drop-area">
+                                    <i class="fas fa-images" style="font-size: 1.75rem; color: var(--accent);"></i>
+                                    <label for="news-gallery" style="margin-top: 0.5rem;">Galeria de Fotos (Opcional)</label>
+                                    <p style="font-size: 0.78rem; color: var(--text-muted);">Selecione várias fotos para o final da matéria</p>
+                                    <input type="file" id="news-gallery" accept="image/*" multiple>
+                                    <div id="gallery-preview" class="preview-thumbnails"></div>
+                                </div>
+                            </div>
+
+                            <!-- Barra de Progresso de Upload -->
+                            <div id="upload-progress-box" class="progress-container hidden">
+                                <p id="upload-status-text" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Enviando arquivos...</p>
+                                <div class="progress-bar-bg">
+                                    <div id="upload-progress-bar" class="progress-bar-fill"></div>
+                                </div>
+                            </div>
+
+                            <!-- Botão de Submissão -->
+                            <button type="submit" id="btn-publish" class="btn btn-primary btn-lg btn-block" style="margin-top: 1rem;">
+                                <i class="fas fa-cloud-upload-alt" style="margin-right: 0.5rem;"></i> Publicar Notícia
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     ABA 2: LISTAGEM DE NOTÍCIAS
+                     ========================================================= -->
+                <section id="view-list" class="admin-tab-view hidden">
+                    <div class="admin-page-header">
+                        <div>
+                            <h1>Listagem de Notícias</h1>
+                            <p>Consulte, filtre e gira as notícias publicadas no site</p>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="window.switchAdminTab('create')">
+                            <i class="fas fa-plus" style="margin-right: 0.4rem;"></i> Nova Notícia
+                        </button>
+                    </div>
+
+                    <div class="admin-card">
+                        <!-- Filtros e Busca -->
+                        <div class="search-filter-row">
+                            <input type="text" id="list-search-input" class="form-control" placeholder="Buscar por título...">
+                            <select id="list-category-filter" class="form-control">
+                                <option value="all">Todas as Categorias</option>
+                            </select>
+                        </div>
+
+                        <!-- Tabela de Notícias -->
+                        <div class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 70px;">Capa</th>
+                                        <th>Título</th>
+                                        <th>Categoria</th>
+                                        <th>Data</th>
+                                        <th style="text-align: right; width: 140px;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-table-body">
+                                    <tr>
+                                        <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">A carregar notícias...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================
+                     ABA 3: CATEGORIAS
+                     ========================================================= -->
+                <section id="view-categories" class="admin-tab-view hidden">
+                    <div class="admin-page-header">
+                        <div>
+                            <h1>Gestão de Categorias</h1>
+                            <p>Organize as notícias por temas e editorias</p>
+                        </div>
+                    </div>
+
+                    <div class="upload-grid">
+                        <!-- Formulário para Criar Categoria -->
+                        <div class="admin-card">
+                            <h2><i class="fas fa-folder-plus" style="color: var(--accent); margin-right: 0.4rem;"></i> Nova Categoria</h2>
+                            
+                            <div id="category-feedback" class="alert-box hidden"></div>
+
+                            <form id="category-form">
+                                <div class="form-group">
+                                    <label for="category-name">Nome da Categoria *</label>
+                                    <input type="text" id="category-name" class="form-control" placeholder="Ex: Mutirões e Feiras" required>
+                                </div>
+                                <button type="submit" id="btn-save-category" class="btn btn-primary btn-block">
+                                    <i class="fas fa-check" style="margin-right: 0.4rem;"></i> Cadastrar Categoria
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Lista de Categorias Cadastradas -->
+                        <div class="admin-card">
+                            <h2><i class="fas fa-tags" style="color: var(--accent); margin-right: 0.4rem;"></i> Categorias Existentes</h2>
+                            <div class="admin-table-wrapper">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Slug</th>
+                                            <th style="text-align: right; width: 80px;">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categories-table-body">
+                                        <tr>
+                                            <td colspan="3" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">A carregar categorias...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
     </div>
 
     <!-- Quill.js CDN -->
@@ -161,4 +313,3 @@
     <script type="module" src="scripts/admin.js"></script>
 </body>
 </html>
-
