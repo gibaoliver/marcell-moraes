@@ -32,7 +32,10 @@ export default defineConfig({
         galeria: resolve(__dirname, 'galeria.html'),
         doacoes: resolve(__dirname, 'doacoes.html'),
         campanha: resolve(__dirname, 'campanha.html'),
-        justicaporacelbildes: resolve(__dirname, 'justicaporacelbildes.html')
+        justicaporacelbildes: resolve(__dirname, 'justicaporacelbildes.html'),
+        noticias: resolve(__dirname, 'noticias.html'),
+        materia: resolve(__dirname, 'materia.html'),
+        admin: resolve(__dirname, 'admin.html')
       }
     }
   }

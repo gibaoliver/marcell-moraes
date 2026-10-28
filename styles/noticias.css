@@ -1,0 +1,667 @@
+/* ==========================================================================
+   SISTEMA DE NOTÍCIAS (MOBILE-FIRST & RESPONSIVO)
+   ========================================================================== */
+
+/* --- Utilitários Gerais do Módulo --- */
+.hidden {
+    display: none !important;
+}
+
+.news-page-main {
+    padding-top: 90px;
+    min-height: calc(100vh - 200px);
+    background-color: var(--bg-light);
+}
+
+/* ==========================================================================
+   1. PÁGINA PÚBLICA DE NOTÍCIAS (/noticias.html)
+   ========================================================================== */
+.news-hero-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 3rem 0;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.news-hero-banner h1 {
+    color: #fff;
+    font-size: clamp(1.85rem, 4vw, 2.75rem);
+    margin-bottom: 0.75rem;
+}
+
+.news-hero-banner p {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 650px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+}
+
+/* Grid Mobile-First: 1 coluna no telemóvel, 2 em tablet, 3 em desktop */
+.news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding-bottom: 4rem;
+}
+
+@media (min-width: 640px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .news-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Card de Notícia */
+.news-card {
+    background: var(--bg-main);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    height: 100%;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.news-card-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #e2e8f0;
+}
+
+.news-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .news-card-thumb img {
+    transform: scale(1.06);
+}
+
+.news-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.news-card-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+}
+
+.news-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.news-card-link {
+    margin-top: auto;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.news-card:hover .news-card-link {
+    color: var(--accent);
+}
+
+/* Estados de Carregamento e Vazio */
+.news-status-box {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+    border: 4px solid rgba(197, 160, 89, 0.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   2. PÁGINA INTERNA DA MATÉRIA (/materia.html)
+   ========================================================================== */
+.article-wrapper {
+    max-width: 860px;
+    margin: 2rem auto 4rem;
+    background: var(--bg-main);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.article-header {
+    padding: 2rem 1.5rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .article-header {
+        padding: 3rem 3.5rem 2rem;
+    }
+}
+
+.article-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+}
+
+.article-back-link:hover {
+    color: var(--primary);
+}
+
+.article-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.article-title {
+    font-size: clamp(1.75rem, 3.8vw, 2.75rem);
+    line-height: 1.2;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.article-subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.article-cover-wrapper {
+    width: 100%;
+    max-height: 520px;
+    overflow: hidden;
+    background: #f1f5f9;
+}
+
+.article-cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    max-height: 520px;
+    object-fit: cover;
+}
+
+.article-body {
+    padding: 2rem 1.5rem;
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--text-main);
+}
+
+@media (min-width: 768px) {
+    .article-body {
+        padding: 2.5rem 3.5rem;
+    }
+}
+
+/* Estilos para o HTML gerado pelo editor Rich Text (Quill) */
+.article-body p {
+    margin-bottom: 1.25rem;
+}
+
+.article-body h2,
+.article-body h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.85rem;
+    color: var(--primary);
+}
+
+.article-body ul,
+.article-body ol {
+    margin: 0 0 1.25rem 1.5rem;
+}
+
+.article-body blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-light);
+    font-style: italic;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.article-body a {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* Galeria de Fotos da Matéria */
+.article-gallery-section {
+    padding: 2rem 1.5rem 3rem;
+    border-top: 1px solid #edf2f7;
+}
+
+@media (min-width: 768px) {
+    .article-gallery-section {
+        padding: 2.5rem 3.5rem 3.5rem;
+    }
+}
+
+.article-gallery-section h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.article-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .article-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.article-gallery-item {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    background: #e2e8f0;
+}
+
+.article-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.article-gallery-item:hover img {
+    transform: scale(1.06);
+}
+
+/* Lightbox Modal para ampliar fotos da galeria */
+.lightbox-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 25, 47, 0.92);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.lightbox-modal img {
+    max-width: 95vw;
+    max-height: 88vh;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   3. PAINEL DE ADMINISTRAÇÃO (/admin.html)
+   ========================================================================== */
+.admin-body {
+    background-color: #f1f5f9;
+    min-height: 100vh;
+}
+
+/* Ecrã de Login */
+.admin-auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: radial-gradient(circle at 70% 30%, #172A45 0%, #0A192F 100%);
+}
+
+.admin-login-card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 2.25rem 1.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.admin-login-card h1 {
+    font-size: 1.65rem;
+    margin-bottom: 0.35rem;
+    text-align: center;
+}
+
+.admin-login-card p {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-bottom: 1.75rem;
+}
+
+/* Topbar do Painel */
+.admin-topbar {
+    background: var(--primary);
+    color: #fff;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.admin-topbar-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.admin-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+}
+
+/* Container Principal do Admin */
+.admin-container {
+    max-width: 960px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+}
+
+.admin-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .admin-card {
+        padding: 2.25rem;
+    }
+}
+
+.admin-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Formulário */
+.form-group {
+    margin-bottom: 1.35rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--primary);
+    margin-bottom: 0.45rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+}
+
+/* Quill Rich Text Editor Wrapper */
+.editor-wrapper {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+}
+
+.editor-wrapper .ql-toolbar {
+    border: none !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    background: #f8fafc;
+}
+
+.editor-wrapper .ql-container {
+    border: none !important;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    min-height: 260px;
+}
+
+/* Upload de Imagens */
+.upload-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+    .upload-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.file-drop-area {
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.file-drop-area:hover {
+    border-color: var(--accent);
+    background: #fffdf9;
+}
+
+.file-drop-area input[type="file"] {
+    width: 100%;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.preview-thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.preview-thumbnails img {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+}
+
+/* Alertas e Barra de Progresso */
+.alert-box {
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+}
+
+.alert-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.alert-success {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.progress-container {
+    margin: 1rem 0;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Lista de Notícias no Admin */
+.admin-news-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #f1f5f9;
+    flex-wrap: wrap;
+}
+
+.admin-news-item:last-child {
+    border-bottom: none;
+}
+
+.admin-news-info {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.admin-news-info img {
+    width: 56px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.btn-danger-sm {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-danger-sm:hover {
+    background: #fecaca;
+}
+

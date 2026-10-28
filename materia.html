@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matéria | Marcell Moraes</title>
+    <meta name="description" content="Leia a matéria completa no portal de notícias de Marcell Moraes.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/noticias.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header id="main-header" class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-name">Marcell Moraes</span><span class="logo-dot">.</span>
+                </a>
+            </div>
+            <button class="mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-links">
+                <a href="index.html#legado">Legado</a>
+                <a href="index.html#biografia">Biografia</a>
+                <a href="index.html#ecossistema">Ações</a>
+                <a href="noticias.html" style="color: var(--accent);">Notícias</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="doacoes.html">Doações</a>
+                <a href="/justicaporacelbildes">Justiça Alcebíades</a>
+            </nav>
+            <a href="https://wa.me/5571999999999" class="btn btn-primary nav-cta">Fale Conosco</a>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="news-page-main">
+        <div class="container">
+            <article id="materia-container" class="article-wrapper">
+                <!-- Estado de carregamento inicial -->
+                <div class="news-status-box" style="box-shadow: none;">
+                    <div class="spinner"></div>
+                    <p style="color: var(--text-muted);">A carregar matéria...</p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Lightbox Modal para ampliar imagens da Galeria -->
+    <div id="lightbox-modal" class="lightbox-modal hidden" role="dialog" aria-modal="true">
+        <button id="lightbox-close" class="lightbox-close" aria-label="Fechar imagem">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Imagem ampliada da galeria">
+    </div>
+
+    <!-- Footer -->
+    <footer id="main-footer" class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <span class="logo-name">Marcell Moraes</span>
+                <p>O trabalho contínuo pela vida.</p>
+            </div>
+            <div class="footer-newsletter">
+                <h3>A causa não para. Seja o primeiro a saber das novas ações.</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Seu melhor e-mail..." required>
+                    <button type="submit" class="btn btn-primary">Receber Atualizações</button>
+                </form>
+            </div>
+            <div class="footer-links">
+                <a href="noticias.html">Notícias</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="doacoes.html">Doações</a>
+                <a href="admin.html">Área Editorial</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Marcell Moraes. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/main.js"></script>
+    <script type="module" src="scripts/materia.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Notícias | Marcell Moraes</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Quill.js Rich Text Editor CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+
+    <!-- Stylesheets do Projeto -->
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/noticias.css">
+</head>
+<body class="admin-body">
+
+    <!-- =================================================================
+         1. ECRÃ DE LOGIN (Visível apenas para utilizadores não autenticados)
+         ================================================================= -->
+    <section id="auth-section" class="admin-auth-wrapper">
+        <div class="admin-login-card">
+            <h1><i class="fas fa-lock" style="color: var(--accent);"></i> Painel Editorial</h1>
+            <p>Autentique-se para gerir e publicar notícias</p>
+
+            <div id="login-alert" class="alert-box alert-error hidden"></div>
+
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-email">E-mail</label>
+                    <input type="email" id="admin-email" class="form-control" placeholder="admin@marcellmoraes.com.br" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-password">Palavra-passe</label>
+                    <input type="password" id="admin-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" id="btn-login" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
+                    Entrar no Painel
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="noticias.html" style="font-size: 0.85rem; color: var(--text-muted);">
+                    <i class="fas fa-arrow-left"></i> Voltar para a página de notícias
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =================================================================
+         2. PAINEL DE ADMINISTRAÇÃO (Oculto até autenticação no Firebase)
+         ================================================================= -->
+    <div id="panel-section" class="hidden">
+        <!-- Barra Superior -->
+        <header class="admin-topbar">
+            <div class="container admin-topbar-inner">
+                <div class="admin-topbar-title">
+                    <i class="fas fa-newspaper" style="color: var(--accent);"></i>
+                    <span>Gestão de Notícias | Marcell Moraes</span>
+                </div>
+                <div class="admin-user-actions">
+                    <span id="admin-user-email"></span>
+                    <a href="noticias.html" target="_blank" class="btn btn-outline-light" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
+                        Ver Página Pública <i class="fas fa-external-link-alt" style="margin-left: 0.35rem;"></i>
+                    </a>
+                    <button id="btn-logout" class="btn btn-primary" style="padding: 0.4rem 0.85rem; font-size: 0.82rem;">
+                        <i class="fas fa-sign-out-alt" style="margin-right: 0.35rem;"></i> Sair
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo do Painel -->
+        <main class="admin-container">
+            <!-- Card: Formulário de Nova Publicação -->
+            <div class="admin-card">
+                <h2><i class="fas fa-plus-circle" style="color: var(--accent); margin-right: 0.4rem;"></i> Publicar Nova Matéria</h2>
+
+                <div id="form-feedback" class="alert-box hidden"></div>
+
+                <form id="news-form">
+                    <!-- Título -->
+                    <div class="form-group">
+                        <label for="news-title">Título da Notícia *</label>
+                        <input type="text" id="news-title" class="form-control" placeholder="Ex: Mutirão de castração atende mais de 500 animais em Salvador" required>
+                    </div>
+
+                    <!-- Subtítulo -->
+                    <div class="form-group">
+                        <label for="news-subtitle">Subtítulo / Linha Fina *</label>
+                        <input type="text" id="news-subtitle" class="form-control" placeholder="Breve resumo que complementa o título principal" required>
+                    </div>
+
+                    <!-- Corpo da Notícia (Quill.js Rich Text) -->
+                    <div class="form-group">
+                        <label>Corpo da Notícia *</label>
+                        <div class="editor-wrapper">
+                            <div id="editor-container"></div>
+                        </div>
+                    </div>
+
+                    <!-- Uploads: Foto de Capa + Galeria de Fotos -->
+                    <div class="upload-grid form-group">
+                        <!-- Upload Capa -->
+                        <div class="file-drop-area">
+                            <i class="fas fa-image" style="font-size: 1.75rem; color: var(--accent);"></i>
+                            <label for="news-cover" style="margin-top: 0.5rem;">Foto de Capa Principal *</label>
+                            <p style="font-size: 0.78rem; color: var(--text-muted);">JPG, PNG ou WEBP (Recomendado: 1200x675px)</p>
+                            <input type="file" id="news-cover" accept="image/*" required>
+                            <div id="cover-preview" class="preview-thumbnails"></div>
+                        </div>
+
+                        <!-- Upload Múltiplo Galeria -->
+                        <div class="file-drop-area">
+                            <i class="fas fa-images" style="font-size: 1.75rem; color: var(--accent);"></i>
+                            <label for="news-gallery" style="margin-top: 0.5rem;">Galeria de Fotos (Opcional)</label>
+                            <p style="font-size: 0.78rem; color: var(--text-muted);">Selecione várias fotos para o final da matéria</p>
+                            <input type="file" id="news-gallery" accept="image/*" multiple>
+                            <div id="gallery-preview" class="preview-thumbnails"></div>
+                        </div>
+                    </div>
+
+                    <!-- Barra de Progresso de Upload -->
+                    <div id="upload-progress-box" class="progress-container hidden">
+                        <p id="upload-status-text" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Enviando arquivos...</p>
+                        <div class="progress-bar-bg">
+                            <div id="upload-progress-bar" class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Botão de Submissão -->
+                    <button type="submit" id="btn-publish" class="btn btn-primary btn-lg btn-block" style="margin-top: 1rem;">
+                        <i class="fas fa-cloud-upload-alt" style="margin-right: 0.5rem;"></i> Publicar Notícia
+                    </button>
+                </form>
+            </div>
+
+            <!-- Card: Lista de Matérias Publicadas -->
+            <div class="admin-card">
+                <h2><i class="fas fa-list-ul" style="color: var(--accent); margin-right: 0.4rem;"></i> Matérias Publicadas</h2>
+                <div id="admin-news-list">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">A carregar matérias...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Quill.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <!-- Script Principal de Administração (ES Module) -->
+    <script type="module" src="scripts/admin.js"></script>
+</body>
+</html>
+
