@@ -740,12 +740,29 @@
     gap: 12px;
 }
 
+@media (max-width: 600px) {
+    .cms-page-header {
+        padding: 12px 14px;
+        gap: 8px;
+    }
+}
+
 .cms-page-title-wrap {
     display: flex;
     align-items: center;
     gap: 10px;
     font-size: 18px;
     color: #333;
+}
+
+@media (max-width: 600px) {
+    .cms-page-title-wrap {
+        font-size: 15px;
+        gap: 8px;
+    }
+    .cms-page-title-wrap i {
+        font-size: 17px !important;
+    }
 }
 
 .cms-page-title-wrap i {
@@ -767,6 +784,19 @@
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .cms-header-quick-actions {
+        gap: 12px;
+    }
+    .cms-quick-action-btn {
+        font-size: 11px !important;
+        padding: 2px 4px !important;
+    }
+    .cms-quick-action-btn i {
+        font-size: 14px !important;
+    }
 }
 
 .cms-quick-action-btn {
@@ -1050,6 +1080,14 @@
     margin-bottom: 22px;
 }
 
+@media (max-width: 600px) {
+    .cms-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+}
+
 .cms-stat-card {
     background: #fff;
     border: 1px solid #ddd;
@@ -1060,16 +1098,37 @@
     justify-content: space-between;
 }
 
+@media (max-width: 600px) {
+    .cms-stat-card {
+        padding: 12px 14px;
+    }
+}
+
 .cms-stat-card h3 {
     font-size: 24px;
     margin: 0 0 4px 0;
     color: #333;
 }
 
+@media (max-width: 600px) {
+    .cms-stat-card h3 {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+}
+
 .cms-stat-card span {
     font-size: 12px;
     color: #777;
     text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+    .cms-stat-card span {
+        font-size: 10px;
+        line-height: 1.2;
+        display: block;
+    }
 }
 
 .cms-stat-icon {
@@ -1081,18 +1140,30 @@
     justify-content: center;
     color: #fff;
     font-size: 18px;
+    flex-shrink: 0;
 }
 
-/* Tabelas do CMS */
+@media (max-width: 600px) {
+    .cms-stat-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+}
+
+/* Tabelas do CMS com Otimização de Texto e Scroll Mobile Suave */
 .cms-table-responsive {
     width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: block;
 }
 
 .cms-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 13px;
+    min-width: 520px;
 }
 
 .cms-table th {
@@ -1102,6 +1173,7 @@
     text-align: left;
     font-weight: 600;
     color: #333;
+    white-space: nowrap;
 }
 
 .cms-table td {
@@ -1114,12 +1186,46 @@
     background: #f9f9f9;
 }
 
+/* Otimização de Título e Subtítulo na Tabela de Postagens */
+.cms-table-title {
+    color: #333;
+    font-size: 13px;
+    line-height: 1.35;
+    font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    max-width: 260px;
+}
+
+.cms-table-subtitle {
+    font-size: 11px;
+    color: #888;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 240px;
+    margin-top: 2px;
+}
+
+@media (max-width: 640px) {
+    .cms-table-subtitle {
+        display: none !important;
+    }
+}
+
 .cms-thumb-sm {
-    width: 54px;
-    height: 38px;
+    width: 50px;
+    height: 36px;
     object-fit: cover;
     border-radius: 2px;
     border: 1px solid #ddd;
+    flex-shrink: 0;
 }
 
 /* Alertas e Progresso */

@@ -677,27 +677,29 @@ function criarLinhaNoticiaHtml(noticia) {
         ? new Intl.DateTimeFormat('pt-BR').format(new Date(noticia.criado_em))
         : 'Recente');
 
+    const subtituloCurto = (noticia.descricao_seo || noticia.subtitulo || '').substring(0, 85);
+
     const tr = document.createElement('tr');
     tr.innerHTML = `
-        <td>
+        <td style="width: 58px; padding-right: 8px;">
             <img src="${noticia.capa_url}" alt="Capa" class="cms-thumb-sm">
         </td>
-        <td>
-            <strong style="color: #333; display: block;">${noticia.titulo}</strong>
-            <span style="font-size: 11px; color: #888;">${noticia.titulo_seo || noticia.subtitulo || ''}</span>
+        <td style="min-width: 160px; max-width: 280px;">
+            <strong class="cms-table-title">${noticia.titulo}</strong>
+            ${subtituloCurto ? `<span class="cms-table-subtitle">${subtituloCurto}</span>` : ''}
         </td>
-        <td>
+        <td style="white-space: nowrap;">
             <span class="badge-category">${noticia.categoria || 'Geral'}</span>
         </td>
-        <td style="white-space: nowrap; color: #666;">${dataExibicao}</td>
-        <td style="text-align: right; white-space: nowrap;">
-            <button type="button" class="cms-btn-cyan btn-edit-post" style="height:28px; padding:0 10px; font-size:12px; border-radius:3px; margin-right:4px;" title="Editar">
+        <td style="white-space: nowrap; font-size: 11px; color: #666;">${dataExibicao}</td>
+        <td style="text-align: right; white-space: nowrap; width: 105px;">
+            <button type="button" class="cms-btn-cyan btn-edit-post" style="height:28px; width:28px; padding:0; display:inline-flex; align-items:center; justify-content:center; font-size:11px; border-radius:3px; margin-right:3px;" title="Editar">
                 <i class="fas fa-pen"></i>
             </button>
-            <a href="materia.html?id=${noticia.id}" target="_blank" class="cms-btn-blue" style="display:inline-flex; align-items:center; height:28px; padding:0 10px; font-size:12px; border-radius:3px; margin-right:4px; text-decoration:none;" title="Visualizar">
+            <a href="materia.html?id=${noticia.id}" target="_blank" class="cms-btn-blue" style="height:28px; width:28px; padding:0; display:inline-flex; align-items:center; justify-content:center; font-size:11px; border-radius:3px; margin-right:3px; text-decoration:none;" title="Visualizar">
                 <i class="fas fa-eye"></i>
             </a>
-            <button type="button" class="cms-btn-red btn-del-post" style="height:28px; padding:0 10px; font-size:12px; border-radius:3px;" title="Excluir">
+            <button type="button" class="cms-btn-red btn-del-post" style="height:28px; width:28px; padding:0; display:inline-flex; align-items:center; justify-content:center; font-size:11px; border-radius:3px;" title="Excluir">
                 <i class="fas fa-trash"></i>
             </button>
         </td>
