@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Editorial de Notícias | Marcell Moraes</title>
+    <title>Gerenciador de Conteúdo | Painel Administrativo</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Roboto & Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,300 +16,744 @@
     <!-- Quill.js Rich Text Editor CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
 
-    <!-- Stylesheets do Projeto -->
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/noticias.css">
 </head>
-<body class="admin-body">
+<body class="cms-body">
 
     <!-- =================================================================
-         1. ECRÃ DE LOGIN (Visível apenas para utilizadores não autenticados)
+         1. ECRÃ DE LOGIN (Apenas para utilizadores não autenticados)
          ================================================================= -->
-    <section id="auth-section" class="admin-auth-wrapper">
-        <div class="admin-login-card">
-            <h1><i class="fas fa-lock" style="color: var(--accent);"></i> Painel Editorial</h1>
-            <p>Autentique-se para gerir notícias e categorias</p>
+    <section id="auth-section" class="cms-auth-wrapper">
+        <div class="cms-login-card">
+            <div class="cms-login-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h1>Acesso ao Painel</h1>
+            <p>Insira as suas credenciais de administrador</p>
 
-            <div id="login-alert" class="alert-box alert-error hidden"></div>
+            <div id="login-alert" class="cms-alert cms-alert-error hidden"></div>
 
             <form id="admin-login-form">
-                <div class="form-group">
-                    <label for="admin-email">E-mail</label>
-                    <input type="email" id="admin-email" class="form-control" placeholder="admin@admin.com" required autocomplete="email">
+                <div style="margin-bottom: 14px;">
+                    <label for="admin-email" style="display:block; margin-bottom:5px; font-weight:500;">E-mail</label>
+                    <input type="email" id="admin-email" class="cms-input" placeholder="admin@admin.com" required autocomplete="email">
                 </div>
 
-                <div class="form-group">
-                    <label for="admin-password">Palavra-passe</label>
-                    <input type="password" id="admin-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                <div style="margin-bottom: 18px;">
+                    <label for="admin-password" style="display:block; margin-bottom:5px; font-weight:500;">Senha</label>
+                    <input type="password" id="admin-password" class="cms-input" placeholder="••••••••" required autocomplete="current-password">
                 </div>
 
-                <button type="submit" id="btn-login" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
-                    Entrar no Painel
+                <button type="submit" id="btn-login" class="cms-btn-blue" style="width: 100%; height: 38px; font-weight: 500;">
+                    Entrar no Sistema
                 </button>
             </form>
 
-            <div style="text-align: center; margin-top: 1.5rem;">
-                <a href="noticias.html" style="font-size: 0.85rem; color: var(--text-muted);">
-                    <i class="fas fa-arrow-left"></i> Voltar para a página de notícias
+            <div style="text-align: center; margin-top: 16px;">
+                <a href="noticias.html" style="font-size: 12px; color: #777;">
+                    <i class="fas fa-arrow-left"></i> Voltar para o portal público
                 </a>
             </div>
         </div>
     </section>
 
     <!-- =================================================================
-         2. PAINEL DE ADMINISTRAÇÃO COM MENU LATERAL (SIDEBAR)
+         2. SISTEMA CMS COMPLETO (Visível após autenticação)
          ================================================================= -->
     <div id="panel-section" class="hidden">
-        
-        <!-- Topbar Mobile (visível apenas em telas menores) -->
-        <header class="admin-mobile-topbar">
-            <button id="sidebar-toggle-btn" class="admin-mobile-btn" aria-label="Abrir Menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            <span style="font-weight: 700; font-size: 1.05rem;">Painel Marcell Moraes</span>
-            <button id="btn-logout-mobile" class="admin-mobile-btn" aria-label="Sair" title="Sair">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
+
+        <!-- BARRA SUPERIOR ESCURA (Sem logomarca do sistema antigo) -->
+        <header class="cms-topbar">
+            <div class="cms-topbar-left">
+                <button type="button" id="cms-sidebar-toggle" class="cms-sidebar-toggle-btn" title="Alternar Menu Lateral">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="cms-topbar-right">
+                <button type="button" id="cms-user-menu-btn" class="cms-user-dropdown-btn">
+                    <span class="cms-avatar-circle" id="topbar-avatar-letter">A</span>
+                    <span id="topbar-user-name">Admin</span>
+                    <i class="fas fa-angle-down" style="font-size: 11px;"></i>
+                </button>
+
+                <div id="cms-user-dropdown" class="cms-user-dropdown-menu hidden">
+                    <a href="noticias.html" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Ver Portal Público
+                    </a>
+                    <button type="button" onclick="window.switchCmsView('usuarios')">
+                        <i class="far fa-id-badge"></i> Meus dados
+                    </button>
+                    <button type="button" id="btn-logout">
+                        <i class="fas fa-power-off" style="color: #f44336;"></i> Sair
+                    </button>
+                </div>
+            </div>
         </header>
 
-        <div class="admin-layout-wrapper">
-            <!-- Backdrop para fechar o menu no mobile -->
-            <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+        <!-- WRAPPER PRINCIPAL -->
+        <div id="cms-wrapper" class="cms-wrapper">
 
-            <!-- MENU LATERAL (SIDEBAR) -->
-            <aside id="admin-sidebar" class="admin-sidebar">
-                <div class="admin-sidebar-header">
-                    <div class="admin-sidebar-brand">
-                        <i class="fas fa-newspaper" style="color: var(--accent);"></i>
-                        <span>Marcell Moraes</span>
+            <!-- MENU LATERAL ESCURO (#263238) -->
+            <aside id="cms-sidebar" class="cms-sidebar">
+                <!-- Bloco do Usuário -->
+                <div class="cms-sidebar-user">
+                    <div class="cms-sidebar-user-info">
+                        <div class="cms-avatar-lg" id="sidebar-avatar-letter">A</div>
+                        <div class="cms-sidebar-user-text">
+                            <strong id="sidebar-user-name">Admin</strong>
+                            <span><i class="fas fa-map-marker-alt"></i> Administrador</span>
+                        </div>
                     </div>
-                    <div class="admin-sidebar-subtitle">Painel de Notícias</div>
+                    <button type="button" class="cms-sidebar-cog" onclick="window.switchCmsView('usuarios')" title="Configurações">
+                        <i class="fas fa-cog"></i>
+                    </button>
                 </div>
 
-                <!-- Lista de Navegação do Menu Lateral -->
-                <nav class="admin-sidebar-nav">
-                    <button type="button" id="nav-btn-create" class="sidebar-menu-btn active">
-                        <i class="fas fa-plus-circle"></i>
-                        <span>Criar Notícia</span>
-                    </button>
+                <!-- Label Navegação -->
+                <div class="cms-nav-title">NAVEGAÇÃO</div>
 
-                    <button type="button" id="nav-btn-list" class="sidebar-menu-btn">
-                        <i class="fas fa-list-ul"></i>
-                        <span>Listagem</span>
-                    </button>
-
-                    <button type="button" id="nav-btn-categories" class="sidebar-menu-btn">
-                        <i class="fas fa-tags"></i>
-                        <span>Categorias</span>
-                    </button>
-                </nav>
-
-                <!-- Rodapé da Sidebar -->
-                <div class="admin-sidebar-footer">
-                    <div class="admin-user-tag">
-                        <i class="fas fa-user-circle"></i>
-                        <span id="admin-user-email"></span>
-                    </div>
-
-                    <a href="noticias.html" target="_blank" class="btn btn-outline-light" style="padding: 0.5rem; font-size: 0.85rem; text-align: center;">
-                        <i class="fas fa-external-link-alt" style="margin-right: 0.4rem;"></i> Ver Página Pública
-                    </a>
-
-                    <button id="btn-logout" class="btn btn-primary" style="padding: 0.5rem; font-size: 0.85rem;">
-                        <i class="fas fa-sign-out-alt" style="margin-right: 0.4rem;"></i> Sair da Conta
-                    </button>
-                </div>
+                <!-- Todos os 10 Menus Laterais do Print 1 -->
+                <ul class="cms-nav-list">
+                    <li>
+                        <button type="button" class="cms-nav-btn active" data-view="home">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="noticias">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Notícias</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="categorias">
+                            <i class="fas fa-sitemap"></i>
+                            <span>Categorias</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="rss">
+                            <i class="fas fa-rss"></i>
+                            <span>Importação RSS</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="anuncios">
+                            <i class="fas fa-volume-up"></i>
+                            <span>Anúncios</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="imagens">
+                            <i class="far fa-images"></i>
+                            <span>Imagens</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="redes">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Redes sociais</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="textos">
+                            <i class="far fa-edit"></i>
+                            <span>Textos e contatos</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="newsletter">
+                            <i class="far fa-envelope"></i>
+                            <span>News Letter</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="cms-nav-btn" data-view="usuarios">
+                            <i class="fas fa-user"></i>
+                            <span>Usuários</span>
+                        </button>
+                    </li>
+                </ul>
             </aside>
 
-            <!-- ÁREA PRINCIPAL COM AS TELAS -->
-            <main class="admin-main-viewport">
+            <!-- CONTEÚDO PRINCIPAL -->
+            <div class="cms-main">
 
-                <!-- =========================================================
-                     ABA 1: CRIAR NOTÍCIA
-                     ========================================================= -->
-                <section id="view-create" class="admin-tab-view">
-                    <div class="admin-page-header">
-                        <div>
-                            <h1>Criar Notícia</h1>
-                            <p>Preencha os dados abaixo para publicar uma nova matéria no portal</p>
-                        </div>
+                <!-- CABEÇALHO BRANCO DA PÁGINA -->
+                <div class="cms-page-header">
+                    <div class="cms-page-title-wrap">
+                        <i class="far fa-arrow-alt-circle-left" id="cms-header-back-btn" title="Voltar"></i>
+                        <div id="cms-header-title-text"><strong>Home</strong> <span>- Dashboard</span></div>
                     </div>
 
-                    <div class="admin-card">
-                        <div id="form-feedback" class="alert-box hidden"></div>
-
-                        <form id="news-form">
-                            <!-- Título -->
-                            <div class="form-group">
-                                <label for="news-title">Título da Notícia *</label>
-                                <input type="text" id="news-title" class="form-control" placeholder="Ex: Mutirão de castração atende mais de 500 animais em Salvador" required>
-                            </div>
-
-                            <!-- Subtítulo e Categoria lado a lado -->
-                            <div class="upload-grid">
-                                <div class="form-group">
-                                    <label for="news-subtitle">Subtítulo / Linha Fina *</label>
-                                    <input type="text" id="news-subtitle" class="form-control" placeholder="Breve resumo da matéria" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="news-category">Categoria *</label>
-                                    <select id="news-category" class="form-control" required>
-                                        <option value="" disabled selected>A carregar categorias...</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Corpo da Notícia (Quill.js Rich Text) -->
-                            <div class="form-group">
-                                <label>Corpo da Notícia *</label>
-                                <div class="editor-wrapper">
-                                    <div id="editor-container"></div>
-                                </div>
-                            </div>
-
-                            <!-- Uploads: Foto de Capa + Galeria de Fotos -->
-                            <div class="upload-grid form-group">
-                                <!-- Upload Capa -->
-                                <div class="file-drop-area">
-                                    <i class="fas fa-image" style="font-size: 1.75rem; color: var(--accent);"></i>
-                                    <label for="news-cover" style="margin-top: 0.5rem;">Foto de Capa Principal *</label>
-                                    <p style="font-size: 0.78rem; color: var(--text-muted);">JPG, PNG ou WEBP (Recomendado: 1200x675px)</p>
-                                    <input type="file" id="news-cover" accept="image/*" required>
-                                    <div id="cover-preview" class="preview-thumbnails"></div>
-                                </div>
-
-                                <!-- Upload Múltiplo Galeria -->
-                                <div class="file-drop-area">
-                                    <i class="fas fa-images" style="font-size: 1.75rem; color: var(--accent);"></i>
-                                    <label for="news-gallery" style="margin-top: 0.5rem;">Galeria de Fotos (Opcional)</label>
-                                    <p style="font-size: 0.78rem; color: var(--text-muted);">Selecione várias fotos para o final da matéria</p>
-                                    <input type="file" id="news-gallery" accept="image/*" multiple>
-                                    <div id="gallery-preview" class="preview-thumbnails"></div>
-                                </div>
-                            </div>
-
-                            <!-- Barra de Progresso de Upload -->
-                            <div id="upload-progress-box" class="progress-container hidden">
-                                <p id="upload-status-text" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">Enviando arquivos...</p>
-                                <div class="progress-bar-bg">
-                                    <div id="upload-progress-bar" class="progress-bar-fill"></div>
-                                </div>
-                            </div>
-
-                            <!-- Botão de Submissão -->
-                            <button type="submit" id="btn-publish" class="btn btn-primary btn-lg btn-block" style="margin-top: 1rem;">
-                                <i class="fas fa-cloud-upload-alt" style="margin-right: 0.5rem;"></i> Publicar Notícia
-                            </button>
-                        </form>
-                    </div>
-                </section>
-
-                <!-- =========================================================
-                     ABA 2: LISTAGEM DE NOTÍCIAS
-                     ========================================================= -->
-                <section id="view-list" class="admin-tab-view hidden">
-                    <div class="admin-page-header">
-                        <div>
-                            <h1>Listagem de Notícias</h1>
-                            <p>Consulte, filtre e gira as notícias publicadas no site</p>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="window.switchAdminTab('create')">
-                            <i class="fas fa-plus" style="margin-right: 0.4rem;"></i> Nova Notícia
+                    <div class="cms-header-quick-actions" id="cms-header-actions">
+                        <button type="button" class="cms-quick-action-btn" id="btn-top-nova-postagem">
+                            <i class="far fa-edit"></i>
+                            <span>Nova postagem</span>
+                        </button>
+                        <button type="button" class="cms-quick-action-btn" id="btn-top-analytics">
+                            <i class="far fa-chart-bar"></i>
+                            <span>Analytics</span>
                         </button>
                     </div>
+                </div>
 
-                    <div class="admin-card">
-                        <!-- Filtros e Busca -->
-                        <div class="search-filter-row">
-                            <input type="text" id="list-search-input" class="form-control" placeholder="Buscar por título...">
-                            <select id="list-category-filter" class="form-control">
-                                <option value="all">Todas as Categorias</option>
-                            </select>
-                        </div>
-
-                        <!-- Tabela de Notícias -->
-                        <div class="admin-table-wrapper">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 70px;">Capa</th>
-                                        <th>Título</th>
-                                        <th>Categoria</th>
-                                        <th>Data</th>
-                                        <th style="text-align: right; width: 140px;">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admin-table-body">
-                                    <tr>
-                                        <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">A carregar notícias...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <!-- BARRA DE BREADCRUMB -->
+                <div class="cms-breadcrumb-bar">
+                    <div class="cms-breadcrumb-left" id="cms-breadcrumb-text">
+                        <i class="fas fa-home"></i> Home / <span class="muted">Dashboard</span>
                     </div>
-                </section>
-
-                <!-- =========================================================
-                     ABA 3: CATEGORIAS
-                     ========================================================= -->
-                <section id="view-categories" class="admin-tab-view hidden">
-                    <div class="admin-page-header">
-                        <div>
-                            <h1>Gestão de Categorias</h1>
-                            <p>Organize as notícias por temas e editorias</p>
-                        </div>
+                    <div class="cms-breadcrumb-right" onclick="window.switchCmsView('usuarios')">
+                        <i class="far fa-id-badge"></i> Meus dados <i class="fas fa-caret-down"></i>
                     </div>
+                </div>
 
-                    <div class="upload-grid">
-                        <!-- Formulário para Criar Categoria -->
-                        <div class="admin-card">
-                            <h2><i class="fas fa-folder-plus" style="color: var(--accent); margin-right: 0.4rem;"></i> Nova Categoria</h2>
-                            
-                            <div id="category-feedback" class="alert-box hidden"></div>
+                <!-- ÁREA DE TELAS DINÂMICAS -->
+                <main class="cms-content-area">
 
-                            <form id="category-form">
-                                <div class="form-group">
-                                    <label for="category-name">Nome da Categoria *</label>
-                                    <input type="text" id="category-name" class="form-control" placeholder="Ex: Mutirões e Feiras" required>
+                    <!-- =====================================================
+                         1. VIEW: HOME - DASHBOARD (Print 1)
+                         ===================================================== -->
+                    <section id="cms-view-home" class="cms-section">
+                        <div class="cms-stats-grid">
+                            <div class="cms-stat-card">
+                                <div>
+                                    <h3 id="stat-total-noticias">0</h3>
+                                    <span>Notícias Publicadas</span>
                                 </div>
-                                <button type="submit" id="btn-save-category" class="btn btn-primary btn-block">
-                                    <i class="fas fa-check" style="margin-right: 0.4rem;"></i> Cadastrar Categoria
-                                </button>
-                            </form>
+                                <div class="cms-stat-icon" style="background: #26a69a;">
+                                    <i class="fas fa-bullhorn"></i>
+                                </div>
+                            </div>
+                            <div class="cms-stat-card">
+                                <div>
+                                    <h3 id="stat-total-categorias">0</h3>
+                                    <span>Categorias Ativas</span>
+                                </div>
+                                <div class="cms-stat-icon" style="background: #2196f3;">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                            </div>
+                            <div class="cms-stat-card">
+                                <div>
+                                    <h3 id="stat-total-anuncios">0</h3>
+                                    <span>Anúncios</span>
+                                </div>
+                                <div class="cms-stat-icon" style="background: #ff9800;">
+                                    <i class="fas fa-volume-up"></i>
+                                </div>
+                            </div>
+                            <div class="cms-stat-card">
+                                <div>
+                                    <h3 id="stat-total-newsletter">0</h3>
+                                    <span>Assinantes Newsletter</span>
+                                </div>
+                                <div class="cms-stat-icon" style="background: #ab47bc;">
+                                    <i class="far fa-envelope"></i>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Lista de Categorias Cadastradas -->
-                        <div class="admin-card">
-                            <h2><i class="fas fa-tags" style="color: var(--accent); margin-right: 0.4rem;"></i> Categorias Existentes</h2>
-                            <div class="admin-table-wrapper">
-                                <table class="admin-table">
+                        <div class="cms-panel">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                                <h3 style="margin:0; font-size:15px; color:#333;">Últimas Postagens Recentes</h3>
+                                <button type="button" class="cms-btn-blue" onclick="window.openNewPostForm()">
+                                    <i class="fas fa-plus"></i> Nova Postagem
+                                </button>
+                            </div>
+                            <div class="cms-table-responsive">
+                                <table class="cms-table">
                                     <thead>
                                         <tr>
-                                            <th>Nome</th>
-                                            <th>Slug</th>
-                                            <th style="text-align: right; width: 80px;">Ação</th>
+                                            <th style="width: 65px;">Imagem</th>
+                                            <th>Título</th>
+                                            <th>Categoria</th>
+                                            <th>Data</th>
+                                            <th style="text-align: right; width: 170px;">Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="categories-table-body">
+                                    <tbody id="home-recent-posts-tbody">
                                         <tr>
-                                            <td colspan="3" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">A carregar categorias...</td>
+                                            <td colspan="5" style="text-align:center; padding: 20px; color:#888;">A carregar postagens...</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-            </main>
+                    <!-- =====================================================
+                         2. VIEW: POSTAGENS - EDIÇÃO/CRIAÇÃO (Idêntico ao Print 2)
+                         ===================================================== -->
+                    <section id="cms-view-postagem" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <div id="post-feedback" class="cms-alert hidden"></div>
+
+                            <form id="cms-post-form">
+                                <input type="hidden" id="post-edit-id" value="">
+
+                                <!-- 1. Data da publicação -->
+                                <div class="cms-form-row">
+                                    <label for="post-date" class="cms-form-label">Data da publicação</label>
+                                    <div>
+                                        <input type="text" id="post-date" class="cms-input" style="max-width: 280px;" placeholder="DD/MM/AAAA" required>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Título + Botão Verificar -->
+                                <div class="cms-form-row">
+                                    <label for="post-title" class="cms-form-label">Título</label>
+                                    <div class="cms-input-group">
+                                        <input type="text" id="post-title" class="cms-input" required>
+                                        <button type="button" id="btn-verify-title" class="cms-btn-cyan">Verificar</button>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Título SEO -->
+                                <div class="cms-form-row">
+                                    <label for="post-seo-title" class="cms-form-label">Título SEO</label>
+                                    <div>
+                                        <input type="text" id="post-seo-title" class="cms-input">
+                                    </div>
+                                </div>
+
+                                <!-- 4. Descrição SEO -->
+                                <div class="cms-form-row">
+                                    <label for="post-seo-desc" class="cms-form-label">Descrição SEO</label>
+                                    <div>
+                                        <input type="text" id="post-seo-desc" class="cms-input">
+                                    </div>
+                                </div>
+
+                                <!-- 5. Palavras chave -->
+                                <div class="cms-form-row">
+                                    <label for="post-keywords" class="cms-form-label">Palavras chave</label>
+                                    <div>
+                                        <input type="text" id="post-keywords" class="cms-input" placeholder="carros, motos, etc...">
+                                    </div>
+                                </div>
+
+                                <!-- 6. Categoria -->
+                                <div class="cms-form-row">
+                                    <label for="post-category" class="cms-form-label">Categoria</label>
+                                    <div>
+                                        <select id="post-category" class="cms-select" style="max-width: 190px;" required>
+                                            <option value="Saúde Animal">Saúde Animal</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- 7. Compressão da imagem -->
+                                <div class="cms-form-row">
+                                    <label for="post-compression" class="cms-form-label">Compressão da imagem</label>
+                                    <div>
+                                        <select id="post-compression" class="cms-select" style="max-width: 190px;">
+                                            <option value="100%">100%</option>
+                                            <option value="85%">85%</option>
+                                            <option value="75%" selected>75%</option>
+                                            <option value="60%">60%</option>
+                                            <option value="50%">50%</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- 8. Imagem Principal -->
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Imagem</label>
+                                    <div>
+                                        <div class="cms-input-group">
+                                            <input type="text" id="post-image-filename" class="cms-input" placeholder="Nenhum arquivo selecionado" readonly>
+                                            <button type="button" id="btn-select-image" class="cms-btn-select-file">
+                                                <i class="far fa-copy"></i> Selecionar
+                                            </button>
+                                            <input type="file" id="post-image-file" accept="image/*" style="display: none;">
+                                        </div>
+                                        <div id="post-cover-preview" class="preview-thumbnails"></div>
+                                    </div>
+                                </div>
+
+                                <!-- 9. Legenda imagem -->
+                                <div class="cms-form-row">
+                                    <label for="post-image-caption" class="cms-form-label">Legenda imagem</label>
+                                    <div>
+                                        <input type="text" id="post-image-caption" class="cms-input">
+                                    </div>
+                                </div>
+
+                                <!-- 10. Galeria de Fotos Adicionais (Opcional) -->
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Galeria de fotos (opcional)</label>
+                                    <div>
+                                        <div class="cms-input-group">
+                                            <input type="text" id="post-gallery-filename" class="cms-input" placeholder="Nenhum arquivo selecionado" readonly>
+                                            <button type="button" id="btn-select-gallery" class="cms-btn-select-file">
+                                                <i class="far fa-images"></i> Selecionar
+                                            </button>
+                                            <input type="file" id="post-gallery-files" accept="image/*" multiple style="display: none;">
+                                        </div>
+                                        <div id="post-gallery-preview" class="preview-thumbnails"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Barra de Progresso de Upload -->
+                                <div id="upload-progress-box" class="cms-progress-wrap hidden">
+                                    <div id="upload-status-text" style="font-size: 12px; margin-bottom: 4px; color: #2196f3; font-weight: 500;">Enviando...</div>
+                                    <div class="cms-progress-bar">
+                                        <div id="upload-progress-bar" class="cms-progress-fill"></div>
+                                    </div>
+                                </div>
+
+                                <!-- 11. Editor Rich Text completo -->
+                                <div class="cms-editor-box">
+                                    <div id="editor-wrapper-visual">
+                                        <div id="editor-container"></div>
+                                    </div>
+                                    <textarea id="post-raw-html" class="cms-raw-html-textarea hidden" placeholder="Código HTML da postagem..."></textarea>
+                                </div>
+
+                                <!-- 12. Rodapé: Desabilitar WYSIWYG + Botões Voltar e Salvar -->
+                                <div class="cms-post-footer">
+                                    <label class="cms-wysiwyg-box">
+                                        <input type="checkbox" id="toggle-wysiwyg">
+                                        <span>Desabilitar WYSIWYG</span>
+                                    </label>
+
+                                    <div class="cms-footer-buttons">
+                                        <button type="button" id="btn-post-back" class="cms-btn-red">Voltar</button>
+                                        <button type="submit" id="btn-post-save" class="cms-btn-blue">Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         3. VIEW: LISTAGEM DE NOTÍCIAS
+                         ===================================================== -->
+                    <section id="cms-view-noticias" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+                                <div style="display:flex; gap:10px; flex-wrap:wrap; flex:1;">
+                                    <input type="text" id="list-search-input" class="cms-input" style="max-width:260px;" placeholder="Pesquisar por título...">
+                                    <select id="list-category-filter" class="cms-select" style="max-width:200px;">
+                                        <option value="all">Todas as Categorias</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="cms-btn-blue" onclick="window.openNewPostForm()">
+                                    <i class="fas fa-plus"></i> Nova Postagem
+                                </button>
+                            </div>
+
+                            <div class="cms-table-responsive">
+                                <table class="cms-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 65px;">Capa</th>
+                                            <th>Título</th>
+                                            <th>Categoria</th>
+                                            <th>Data Pub.</th>
+                                            <th style="text-align: right; width: 190px;">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-table-body">
+                                        <tr>
+                                            <td colspan="5" style="text-align:center; padding: 24px; color:#888;">A carregar notícias...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         4. VIEW: CATEGORIAS
+                         ===================================================== -->
+                    <section id="cms-view-categorias" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <h3 style="margin-top:0; margin-bottom:16px; font-size:15px;">Cadastrar Nova Categoria</h3>
+                            <div id="category-feedback" class="cms-alert hidden"></div>
+
+                            <form id="category-form" style="display:flex; gap:10px; max-width:500px; margin-bottom:24px;">
+                                <input type="text" id="category-name" class="cms-input" placeholder="Nome da categoria (ex: Agricultura)" required>
+                                <button type="submit" id="btn-save-category" class="cms-btn-blue">Salvar</button>
+                            </form>
+
+                            <div class="cms-table-responsive">
+                                <table class="cms-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome da Categoria</th>
+                                            <th>Slug</th>
+                                            <th style="text-align: right; width: 100px;">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categories-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         5. VIEW: IMPORTAÇÃO RSS
+                         ===================================================== -->
+                    <section id="cms-view-rss" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <h3 style="margin-top:0; margin-bottom:16px; font-size:15px;">Fontes de Importação RSS</h3>
+                            <div id="rss-feedback" class="cms-alert hidden"></div>
+
+                            <form id="rss-form">
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Nome da Fonte</label>
+                                    <input type="text" id="rss-name" class="cms-input" placeholder="Ex: Agência Brasil" required>
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">URL do Feed RSS</label>
+                                    <input type="url" id="rss-url" class="cms-input" placeholder="https://exemplo.com/rss.xml" required>
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Categoria Destino</label>
+                                    <select id="rss-category" class="cms-select" style="max-width:220px;"></select>
+                                </div>
+                                <div style="text-align:right; margin-top:12px;">
+                                    <button type="submit" class="cms-btn-blue">Adicionar Feed RSS</button>
+                                </div>
+                            </form>
+
+                            <hr style="border:none; border-top:1px solid #eee; margin: 20px 0;">
+
+                            <div class="cms-table-responsive">
+                                <table class="cms-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fonte</th>
+                                            <th>URL</th>
+                                            <th>Categoria</th>
+                                            <th style="text-align:right; width:100px;">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="rss-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         6. VIEW: ANÚNCIOS
+                         ===================================================== -->
+                    <section id="cms-view-anuncios" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <h3 style="margin-top:0; margin-bottom:16px; font-size:15px;">Gerenciar Banners e Anúncios</h3>
+                            <div id="ad-feedback" class="cms-alert hidden"></div>
+
+                            <form id="ad-form">
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Título do Anúncio</label>
+                                    <input type="text" id="ad-title" class="cms-input" placeholder="Ex: Campanha de Vacinação" required>
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Posição</label>
+                                    <select id="ad-position" class="cms-select" style="max-width:220px;">
+                                        <option value="Topo">Banner Topo</option>
+                                        <option value="Lateral">Barra Lateral</option>
+                                        <option value="Interno">Dentro da Matéria</option>
+                                    </select>
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Link de Destino</label>
+                                    <input type="url" id="ad-link" class="cms-input" placeholder="https://...">
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Imagem do Banner</label>
+                                    <input type="file" id="ad-image-file" accept="image/*" class="cms-input" required>
+                                </div>
+                                <div style="text-align:right; margin-top:12px;">
+                                    <button type="submit" id="btn-save-ad" class="cms-btn-blue">Salvar Anúncio</button>
+                                </div>
+                            </form>
+
+                            <hr style="border:none; border-top:1px solid #eee; margin: 20px 0;">
+
+                            <div class="cms-table-responsive">
+                                <table class="cms-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:80px;">Banner</th>
+                                            <th>Título</th>
+                                            <th>Posição</th>
+                                            <th style="text-align:right; width:100px;">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ads-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         7. VIEW: IMAGENS (BIBLIOTECA DE MÍDIA)
+                         ===================================================== -->
+                    <section id="cms-view-imagens" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                                <h3 style="margin:0; font-size:15px;">Biblioteca de Imagens</h3>
+                                <div>
+                                    <input type="file" id="media-upload-input" accept="image/*" style="display:none;">
+                                    <button type="button" id="btn-upload-media" class="cms-btn-blue">
+                                        <i class="fas fa-upload"></i> Enviar Nova Imagem
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="media-gallery-grid" class="cms-media-grid"></div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         8. VIEW: REDES SOCIAIS
+                         ===================================================== -->
+                    <section id="cms-view-redes" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <h3 style="margin-top:0; margin-bottom:16px; font-size:15px;">Links das Redes Sociais</h3>
+                            <div id="social-feedback" class="cms-alert hidden"></div>
+
+                            <form id="social-form">
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Instagram</label>
+                                    <input type="url" id="cfg-instagram" class="cms-input" placeholder="https://instagram.com/...">
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Facebook</label>
+                                    <input type="url" id="cfg-facebook" class="cms-input" placeholder="https://facebook.com/...">
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">YouTube</label>
+                                    <input type="url" id="cfg-youtube" class="cms-input" placeholder="https://youtube.com/...">
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">WhatsApp (somente números)</label>
+                                    <input type="text" id="cfg-whatsapp" class="cms-input" placeholder="5571999999999">
+                                </div>
+                                <div style="text-align:right; margin-top:16px;">
+                                    <button type="submit" class="cms-btn-blue">Salvar Redes Sociais</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         9. VIEW: TEXTOS E CONTATOS
+                         ===================================================== -->
+                    <section id="cms-view-textos" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <h3 style="margin-top:0; margin-bottom:16px; font-size:15px;">Textos Institucionais e Contatos</h3>
+                            <div id="texts-feedback" class="cms-alert hidden"></div>
+
+                            <form id="texts-form">
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">E-mail de Contato</label>
+                                    <input type="email" id="cfg-email" class="cms-input">
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Telefone / Assessoria</label>
+                                    <input type="text" id="cfg-phone" class="cms-input">
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Frase Institucional</label>
+                                    <input type="text" id="cfg-institutional" class="cms-input">
+                                </div>
+                                <div style="text-align:right; margin-top:16px;">
+                                    <button type="submit" class="cms-btn-blue">Salvar Dados</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         10. VIEW: NEWS LETTER
+                         ===================================================== -->
+                    <section id="cms-view-newsletter" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                                <h3 style="margin:0; font-size:15px;">E-mails Cadastrados na Newsletter</h3>
+                                <button type="button" id="btn-export-newsletter" class="cms-btn-cyan">
+                                    <i class="fas fa-download"></i> Exportar CSV
+                                </button>
+                            </div>
+                            <div class="cms-table-responsive">
+                                <table class="cms-table">
+                                    <thead>
+                                        <tr>
+                                            <th>E-mail</th>
+                                            <th>Data de Inscrição</th>
+                                            <th style="text-align:right; width:100px;">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="newsletter-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =====================================================
+                         11. VIEW: USUÁRIOS
+                         ===================================================== -->
+                    <section id="cms-view-usuarios" class="cms-section hidden">
+                        <div class="cms-panel">
+                            <h3 style="margin-top:0; margin-bottom:16px; font-size:15px;">Gerenciamento de Usuários</h3>
+                            <div id="user-feedback" class="cms-alert hidden"></div>
+
+                            <form id="user-form">
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Nome</label>
+                                    <input type="text" id="user-new-name" class="cms-input" placeholder="Nome completo" required>
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">E-mail</label>
+                                    <input type="email" id="user-new-email" class="cms-input" placeholder="usuario@dominio.com" required>
+                                </div>
+                                <div class="cms-form-row">
+                                    <label class="cms-form-label">Cargo / Função</label>
+                                    <select id="user-new-role" class="cms-select" style="max-width:220px;">
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Editor">Editor</option>
+                                        <option value="Jornalista">Jornalista</option>
+                                    </select>
+                                </div>
+                                <div style="text-align:right; margin-top:12px;">
+                                    <button type="submit" class="cms-btn-blue">Registrar Usuário</button>
+                                </div>
+                            </form>
+
+                            <hr style="border:none; border-top:1px solid #eee; margin: 20px 0;">
+
+                            <div class="cms-table-responsive">
+                                <table class="cms-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>E-mail</th>
+                                            <th>Cargo</th>
+                                            <th style="text-align:right; width:100px;">Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
         </div>
     </div>
 
     <!-- Quill.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <!-- Script Principal de Administração (ES Module) -->
+    <!-- Script Principal do CMS (ES Module) -->
     <script type="module" src="scripts/admin.js"></script>
 </body>
 </html>

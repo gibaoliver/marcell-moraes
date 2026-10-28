@@ -6,10 +6,8 @@ const lightboxModal = document.getElementById('lightbox-modal');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxClose = document.getElementById('lightbox-close');
 
-/**
- * Formata a string ISO do Supabase para data e hora em português
- */
-const formatarDataCompleta = (isoString) => {
+const formatarDataCompleta = (isoString, dataPubTexto) => {
+    if (dataPubTexto) return dataPubTexto;
     if (!isoString) return 'Publicado recentemente';
     return new Intl.DateTimeFormat('pt-BR', {
         day: '2-digit',
@@ -26,9 +24,6 @@ const escaparHtml = (texto = '') => {
     return div.innerHTML;
 };
 
-/**
- * Configura eventos do Lightbox para ampliar imagens da galeria
- */
 const inicializarLightbox = () => {
     document.querySelectorAll('.article-gallery-item img').forEach((img) => {
         img.addEventListener('click', () => {
@@ -51,9 +46,6 @@ const inicializarLightbox = () => {
     });
 };
 
-/**
- * Lê o parâmetro ?id= da URL, consulta o registo no Supabase e injeta a matéria completa
- */
 async function carregarMateria() {
     const params = new URLSearchParams(window.location.search);
     const noticiaId = params.get('id');
@@ -90,17 +82,21 @@ async function carregarMateria() {
         }
 
         const titulo = escaparHtml(dados.titulo);
-        const subtitulo = escaparHtml(dados.subtitulo || '');
+        const subtitulo = escaparHtml(dados.descricao_seo || dados.subtitulo || '');
         const categoria = escaparHtml(dados.categoria || 'Geral');
-        const dataFormatada = formatarDataCompleta(dados.criado_em);
+        const legenda = escaparHtml(dados.legenda_imagem || '');
+        const dataFormatada = formatarDataCompleta(dados.criado_em, dados.data_publicacao);
         const capaUrl = dados.capa_url || '';
         const corpoFormatado = dados.corpo || '';
         const galeria = Array.isArray(dados.galeria_urls) ? dados.galeria_urls : [];
 
-        // Atualiza o título da aba do navegador
-        document.title = `${dados.titulo} | Marcell Moraes`;
+        // Atualiza SEO (Title, Meta Description e Meta Keywords)
+        document.title = `${dados.titulo_seo || dados.titulo} | Marcell Moraes`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && (dados.descricao_seo || dados.subtitulo)) {
+            metaDesc.setAttribute('content', dados.descricao_seo || dados.subtitulo);
+        }
 
-        // Constrói o HTML da Galeria de Fotos caso existam imagens adicionais
         let galeriaHtml = '';
         if (galeria.length > 0) {
             const itensGaleria = galeria
@@ -121,7 +117,6 @@ async function carregarMateria() {
             `;
         }
 
-        // Injeta o conteúdo completo no DOM
         materiaContainer.innerHTML = `
             <header class="article-header">
                 <a href="noticias.html" class="article-back-link">
@@ -141,6 +136,7 @@ async function carregarMateria() {
                 <figure class="article-cover-wrapper">
                     <img src="${capaUrl}" alt="${titulo}">
                 </figure>
+                ${legenda ? `<figcaption class="article-caption">${legenda}</figcaption>` : ''}
             ` : ''}
 
             <div class="article-body">

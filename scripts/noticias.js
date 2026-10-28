@@ -7,10 +7,8 @@ const categoryFilterContainer = document.getElementById('category-filter-contain
 let todasAsNoticias = [];
 let categoriaAtiva = 'all';
 
-/**
- * Formata a string ISO do Supabase para data legível em português
- */
-const formatarData = (isoString) => {
+const formatarData = (isoString, dataPubTexto) => {
+    if (dataPubTexto) return dataPubTexto;
     if (!isoString) return 'Publicação recente';
     return new Intl.DateTimeFormat('pt-BR', {
         day: '2-digit',
@@ -25,13 +23,9 @@ const escaparHtml = (texto = '') => {
     return div.innerHTML;
 };
 
-/**
- * Renderiza os botões/pills de filtro por categoria no topo da página
- */
 function renderizarFiltrosCategorias() {
     if (!categoryFilterContainer) return;
 
-    // Coleta categorias únicas presentes nas notícias
     const categoriasSet = new Set();
     todasAsNoticias.forEach((n) => {
         if (n.categoria) categoriasSet.add(n.categoria);
@@ -50,7 +44,6 @@ function renderizarFiltrosCategorias() {
 
     categoryFilterContainer.innerHTML = html;
 
-    // Adiciona listeners para os cliques
     categoryFilterContainer.querySelectorAll('.filter-pill').forEach((btn) => {
         btn.addEventListener('click', () => {
             categoriaAtiva = btn.getAttribute('data-cat');
@@ -60,9 +53,6 @@ function renderizarFiltrosCategorias() {
     });
 }
 
-/**
- * Renderiza os cards das notícias com base no filtro ativo
- */
 function renderizarCards() {
     const noticiasFiltradas = todasAsNoticias.filter((n) => {
         return categoriaAtiva === 'all' || n.categoria === categoriaAtiva;
@@ -83,10 +73,10 @@ function renderizarCards() {
     noticiasFiltradas.forEach((noticia) => {
         const id = noticia.id;
         const titulo = escaparHtml(noticia.titulo);
-        const subtitulo = escaparHtml(noticia.subtitulo || '');
+        const subtitulo = escaparHtml(noticia.descricao_seo || noticia.subtitulo || '');
         const categoria = escaparHtml(noticia.categoria || 'Geral');
         const capaUrl = noticia.capa_url || 'assets/WhatsApp Image 2026-06-17 at 22.35.48.jpeg';
-        const dataPublicacao = formatarData(noticia.criado_em);
+        const dataPublicacao = formatarData(noticia.criado_em, noticia.data_publicacao);
 
         cardsHtml += `
             <article class="news-card">
@@ -115,14 +105,11 @@ function renderizarCards() {
     noticiasContainer.innerHTML = cardsHtml;
 }
 
-/**
- * Busca as notícias publicadas no Supabase
- */
 async function carregarNoticias() {
     try {
         const { data: noticias, error } = await supabase
             .from('noticias')
-            .select('id, titulo, subtitulo, categoria, capa_url, criado_em, publicado')
+            .select('*')
             .eq('publicado', true)
             .order('criado_em', { ascending: false });
 
