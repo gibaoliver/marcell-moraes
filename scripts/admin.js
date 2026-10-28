@@ -577,11 +577,39 @@ postForm.addEventListener('submit', async (e) => {
         };
 
         if (editId) {
-            const { error } = await supabase.from('noticias').update(dadosPostagem).eq('id', editId);
+            let { error } = await supabase.from('noticias').update(dadosPostagem).eq('id', editId);
+            if (error && error.message && error.message.includes('schema cache')) {
+                // Fallback automático com os campos base se as novas colunas ainda não foram migradas
+                const dadosBase = {
+                    titulo,
+                    subtitulo: subtituloCard,
+                    capa_url: capaUrlFinal,
+                    galeria_urls: galeriaFinal,
+                    corpo: corpoHtml,
+                    publicado: true,
+                    autor_email: currentUser?.email || 'admin'
+                };
+                const retry = await supabase.from('noticias').update(dadosBase).eq('id', editId);
+                error = retry.error;
+            }
             if (error) throw error;
             exibirAlertaPostagem('Postagem atualizada com sucesso!');
         } else {
-            const { error } = await supabase.from('noticias').insert([dadosPostagem]);
+            let { error } = await supabase.from('noticias').insert([dadosPostagem]);
+            if (error && error.message && error.message.includes('schema cache')) {
+                // Fallback automático com os campos base se as novas colunas ainda não foram migradas
+                const dadosBase = {
+                    titulo,
+                    subtitulo: subtituloCard,
+                    capa_url: capaUrlFinal,
+                    galeria_urls: galeriaFinal,
+                    corpo: corpoHtml,
+                    publicado: true,
+                    autor_email: currentUser?.email || 'admin'
+                };
+                const retry = await supabase.from('noticias').insert([dadosBase]);
+                error = retry.error;
+            }
             if (error) throw error;
             exibirAlertaPostagem('Postagem criada e publicada com sucesso!');
         }
